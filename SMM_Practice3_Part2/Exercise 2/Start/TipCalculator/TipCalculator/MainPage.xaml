@@ -4,27 +4,41 @@
              xmlns:local="clr-namespace:TipCalculator"
              x:Class="TipCalculator.MainPage">
 
-	<StackLayout>
+    <StackLayout Orientation="Vertical" Padding="20,10,20,10">
 
-		<Label Text="Bill" />
-		<Entry x:Name="billInput" Placeholder="Enter Amount" Keyboard="Numeric" />
+        <StackLayout Orientation="Horizontal" Padding="0,0,0,20">
+            <Label Text="Bill"  VerticalOptions="Center"/>
+            <Entry x:Name="billInput" Placeholder="Enter Amount" Keyboard="Numeric" />
+        </StackLayout>
 
-		<Label Text="Tip"   />
-		<Label x:Name="tipOutput" Text="0.00" />
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Tip"   />
+            <Label x:Name="tipOutput" Text="0.00" />
+        </StackLayout>
 
-		<Label Text="Total" />
-		<Label x:Name="totalOutput" Text="0.00" />
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Total" />
+            <Label x:Name="totalOutput" Text="0.00" />
+        </StackLayout>
 
-		<Label Text="Tip Percentage" />
-        <Label x:Name="tipPercent" Text="15%" />
-        <Slider x:Name="tipPercentSlider" Minimum="0" Maximum="100" Value="15" />
+        <StackLayout Orientation="Vertical" VerticalOptions="EndAndExpand">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Tip Percentage" />
+                <Label x:Name="tipPercent" Text="15%" />
+            </StackLayout>
 
-        <Button Text="15%" Clicked="OnNormalTip" />
-        <Button Text="20%" Clicked="OnGenerousTip" />
+            <Slider x:Name="tipPercentSlider" Minimum="0" Maximum="100" Value="15" />
 
-        <Button x:Name="roundDown" Text="Round Down" />
-        <Button x:Name="roundUp"   Text="Round Up" />
-
-	</StackLayout>
-
+            <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                <StackLayout Orientation="Vertical">
+                    <Button Text="15%" Clicked="OnNormalTip" HorizontalOptions="Center"/>
+                    <Button x:Name="roundDown" Text="Round Down" HorizontalOptions="Center"/>
+                </StackLayout>
+                <StackLayout Orientation="Vertical">
+                    <Button Text="20%" Clicked="OnGenerousTip" HorizontalOptions="Center"/>
+                    <Button x:Name="roundUp"   Text="Round Up" HorizontalOptions="Center"/>
+                </StackLayout>
+            </StackLayout>
+        </StackLayout>
+    </StackLayout>
 </ContentPage>

@@ -4,26 +4,27 @@
              xmlns:local="clr-namespace:Alignment"
              x:Class="Alignment.MainPage">
 
-	<StackLayout Padding="0,20,0,0">
-
-		<StackLayout Orientation="Horizontal">
-			<Label Text="Horizontal" VerticalOptions="Center" />
-			<Button Text="Start"  Clicked="OnHorizontalStartClicked"  />
-			<Button Text="Center" Clicked="OnHorizontalCenterClicked" />
-			<Button Text="End"    Clicked="OnHorizontalEndClicked"    />
-			<Button Text="Fill"   Clicked="OnHorizontalFillClicked"   />
-		</StackLayout>
-
-		<StackLayout Orientation="Horizontal" Margin="0,0,0,10">
-			<Label Text="Vertical" VerticalOptions="Center" />
-			<Button Text="Start"  Clicked="OnVerticalStartClicked"  />
-			<Button Text="Center" Clicked="OnVerticalCenterClicked" />
-			<Button Text="End"    Clicked="OnVerticalEndClicked"    />
-			<Button Text="Fill"   Clicked="OnVerticalFillClicked"   />
-		</StackLayout>
-
-		<Label x:Name="target" BackgroundColor="Gray" Text="Hello" WidthRequest="150" HeightRequest="150" />
-
-	</StackLayout>
+    <StackLayout Padding="0,20,0,0" Orientation="Horizontal">
+<!-- To make it work in Vertical axis you must comment this code to show the label and change the orientation of the 
+        parent Stacklayout to Horizontal. If you put orientation in Horizontal, your alignment is in the vertical axis.
+        <StackLayout Orientation="Horizontal">
+            <Label Text="Horizontal" VerticalOptions="Center" />
+            <Button Text="Start"  Clicked="OnHorizontalStartClicked"  />
+            <Button Text="Center" Clicked="OnHorizontalCenterClicked" />
+            <Button Text="End"    Clicked="OnHorizontalEndClicked"    />
+            <Button Text="Fill"   Clicked="OnHorizontalFillClicked"   />
+        </StackLayout>
+-->
+        <StackLayout Orientation="Horizontal" Margin="0,0,0,10">
+            <Label Text="Vertical" VerticalOptions="Center" />
+            <Button Text="Start"  Clicked="OnVerticalStartClicked"  />
+            <Button Text="Center" Clicked="OnVerticalCenterClicked" />
+            <Button Text="End"    Clicked="OnVerticalEndClicked"    />
+            <Button Text="Fill"   Clicked="OnVerticalFillClicked"   />
+        </StackLayout>
+        
+        <Label x:Name="target" BackgroundColor="Gray" Text="Hello" WidthRequest="150" HeightRequest="150" />
+        
+    </StackLayout>
 
 </ContentPage>
