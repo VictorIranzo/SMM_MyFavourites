@@ -16,5 +16,12 @@ namespace Minutes
 		{
 			InitializeComponent ();
 		}
-	}
+
+        protected async override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            entries.ItemsSource = await App.Entries.ReadAsync();
+        }
+    }
 }
