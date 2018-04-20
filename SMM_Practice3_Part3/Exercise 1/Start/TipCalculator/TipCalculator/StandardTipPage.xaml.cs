@@ -27,27 +27,17 @@ namespace TipCalculator
 
 		void OnLight(object sender, EventArgs e)
 		{
-			LayoutRoot.BackgroundColor = Color.Silver;
-            
-			tipLabel   .TextColor = Color.Navy;
-			billLabel  .TextColor = Color.Navy;
-			totalLabel .TextColor = Color.Navy;
-			tipOutput  .TextColor = Color.Navy;
-			totalOutput.TextColor = Color.Navy;
-		}
+            this.Resources["fgColor"] = Color.FromHex("#606060");
+            this.Resources["bgColor"] = Color.FromHex("#C0C0C0");
+        }
 
-		void OnDark(object sender, EventArgs e)
+        void OnDark(object sender, EventArgs e)
 		{
-			LayoutRoot.BackgroundColor = Color.Navy;
+            this.Resources["fgColor"] = Color.FromHex("#C0C0C0");
+            this.Resources["bgColor"] = Color.FromHex("#606060");
+        }
 
-			tipLabel   .TextColor = Color.Silver;
-			billLabel  .TextColor = Color.Silver;
-			totalLabel .TextColor = Color.Silver;
-			tipOutput  .TextColor = Color.Silver;
-			totalOutput.TextColor = Color.Silver;
-		}
-
-		void GotoCustom(object sender, EventArgs e)
+        void GotoCustom(object sender, EventArgs e)
 		{
 			Navigation.PushAsync(new CustomTipPage());
 		}
