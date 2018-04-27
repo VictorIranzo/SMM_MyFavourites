@@ -22,8 +22,6 @@ namespace NetStatus
                 VerticalOptions = LayoutOptions.Center,
                 TextColor = Color.FromRgb(0x40,0x40,0x40)
             };
-
-			InitializeComponent ();
 		}
 	}
 }
