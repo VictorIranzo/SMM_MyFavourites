@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -7,28 +9,69 @@ namespace BookClient.Data
 {
     public class BookManager
     {
-        public Task<IEnumerable<Book>> GetAll()
+        private const string baseUrl = "http://xam150.azurewebsites.net/api/books/";
+        private string authorizationKey;
+
+        public async Task<IEnumerable<Book>> GetAll()
         {
-            // TODO: use GET to retrieve books
-            throw new NotImplementedException();
+            HttpClient httpClient = await GetClient();
+            string result = await httpClient.GetStringAsync(baseUrl);
+
+            return JsonConvert.DeserializeObject<IEnumerable<Book>>(result);
         }
 
-        public Task<Book> Add(string title, string author, string genre)
+        public async Task<Book> Add(string title, string author, string genre)
         {
-            // TODO: use POST to add a book
-            throw new NotImplementedException();
+            Book book = new Book()
+            {
+                ISBN = string.Empty,
+                Authors = new List<string>() { author },
+                Title = title,
+                Genre = genre,
+                PublishDate = DateTime.Now
+            };
+
+            HttpClient httpClient = await GetClient();
+            string bookSerialized = JsonConvert.SerializeObject(book);
+            HttpContent httpContent = new StringContent(bookSerialized,Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PostAsync(baseUrl, httpContent);
+            string bookPosted = await response.Content.ReadAsStringAsync();
+
+            return JsonConvert.DeserializeObject<Book>(bookPosted);
         }
 
-        public Task Update(Book book)
+        public async Task Update(Book book)
         {
-            // TODO: use PUT to update a book
-            throw new NotImplementedException();
+            HttpClient httpClient = await GetClient();
+
+            string bookSerialized = JsonConvert.SerializeObject(book);
+            HttpContent httpContent = new StringContent(bookSerialized, Encoding.UTF8, "application/json");
+
+            await httpClient.PutAsync(baseUrl + book.ISBN, httpContent);
         }
 
-        public Task Delete(string isbn)
+        public async Task Delete(string isbn)
         {
-            // TODO: use DELETE to delete a book
-            throw new NotImplementedException();
+            HttpClient httpClient = await GetClient();
+
+            await httpClient.DeleteAsync(baseUrl + isbn);
+        }
+
+        private async Task<HttpClient> GetClient()
+        {
+            HttpClient httpClient = new HttpClient();
+
+            if (string.IsNullOrEmpty(authorizationKey))
+            {
+                string response = await httpClient.GetStringAsync(baseUrl + "login");
+                authorizationKey = JsonConvert.DeserializeObject<string>(response);
+            }
+
+            httpClient.DefaultRequestHeaders.Add("Authorization",authorizationKey);
+            httpClient.DefaultRequestHeaders.Add("Accept","application/json");
+
+            return httpClient;
         }
     }
 }
