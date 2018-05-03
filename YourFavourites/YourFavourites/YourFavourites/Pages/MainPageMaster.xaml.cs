@@ -33,7 +33,7 @@ namespace YourFavourites
             {
                 MenuItems = new ObservableCollection<MainPageMenuItem>(new[]
                 {
-                    new MainPageMenuItem { Id = 0, Title = "Movies" , IconSource = "movie.png", TargetType = typeof(MoviesPage)},
+                    new MainPageMenuItem { Id = 1, Title = "Movies" , IconSource = "movie.png", TargetType = typeof(MoviesPage)},
                 });
             }
             
