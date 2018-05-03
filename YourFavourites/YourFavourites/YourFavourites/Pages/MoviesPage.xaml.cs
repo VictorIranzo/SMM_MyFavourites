@@ -21,7 +21,7 @@ namespace YourFavourites
         protected async override void OnAppearing()
         {
             base.OnAppearing();
-            entries.ItemsSource = await new MoviesManager().GetAll();
+            entries.ItemsSource = await MoviesManager.getMoviesManager().GetAll();
         }
     }
 }

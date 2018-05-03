@@ -11,11 +11,26 @@ namespace YourFavourites.Data
     {
         private const string baseUrl = "https://hydramovies.com/api-v2/?source=http://hydramovies.com/api-v2/current-Movie-Data.csv";
 
+        private IEnumerable<Movie> movies;
+
+        private static MoviesManager instance;
+
+        public static MoviesManager getMoviesManager() {
+            if (instance == null) return new MoviesManager();
+
+            return instance;
+        }
+
+        private MoviesManager() { }
+
         public async Task<IEnumerable<Movie>> GetAll()
         {
-            HttpClient httpClient = new HttpClient();
-            string result = await httpClient.GetStringAsync(baseUrl);
-            IEnumerable<Movie> movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(result);
+            if (movies == null)
+            {
+                HttpClient httpClient = new HttpClient();
+                string result = await httpClient.GetStringAsync(baseUrl);
+                movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(result);
+            }
 
             return movies;
         }
