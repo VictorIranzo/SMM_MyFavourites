@@ -16,7 +16,7 @@
 
                     <ViewCell>
 
-                        <Label Text="{Binding .}"/>
+                        <Label Text="{Binding Title}"/>
 
                     </ViewCell>
 

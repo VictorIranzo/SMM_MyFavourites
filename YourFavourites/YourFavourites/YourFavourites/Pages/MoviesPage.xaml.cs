@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using YourFavourites.Components;
 using YourFavourites.Data;
 
 namespace YourFavourites
@@ -17,7 +18,7 @@ namespace YourFavourites
     {
         public MoviesPage()
         {
-            BindingContext = new IncrementalViewModel();
+            BindingContext = new MoviesListIncrementalView();
 
             InitializeComponent();
         }
@@ -26,7 +27,7 @@ namespace YourFavourites
         {
             base.OnAppearing();
 
-            IncrementalViewModel vm = BindingContext as IncrementalViewModel;
+            MoviesListIncrementalView vm = BindingContext as MoviesListIncrementalView;
 
             vm.LoadMoreItemsCommand.Execute(null);
         }

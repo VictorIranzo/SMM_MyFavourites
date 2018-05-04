@@ -11,17 +11,17 @@ using Xamarin.Forms;
 
 namespace YourFavourites
 {
-    public class IncrementalViewModel : INotifyPropertyChanged, ISupportIncrementalLoading
+    public abstract class IncrementalViewModel<T> : INotifyPropertyChanged, ISupportIncrementalLoading
     {
-        int counter;
-
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public ObservableCollection<string> MyItems { get; set; }
+        public ObservableCollection<T> MyItems { get; set; }
 
         #region ISupportIncrementalLoading Implementation
 
         public int PageSize { get; set; } = 20;
+
+        public int CurrentPosition { get; set; }
 
         public ICommand LoadMoreItemsCommand { get; set; }
 
@@ -56,30 +56,31 @@ namespace YourFavourites
 
         public IncrementalViewModel()
         {
-            MyItems = new ObservableCollection<string>();
+            MyItems = new ObservableCollection<T>();
 
             LoadMoreItemsCommand = new Command(async () => await LoadMoreItems());
 
             HasMoreItems = true;
+
+            CurrentPosition = 0;
         }
 
         async Task LoadMoreItems()
         {
             IsLoadingIncrementally = true;
 
-            // Simulate a long running operation
-            await Task.Delay(1000);
+            await AddItems();
 
-            int end = counter + PageSize;
-            for (; counter < end; counter++)
-            {
-                MyItems.Add(counter.ToString());
-            }
+            HasMoreItems = await CheckMoreItems();
 
-            // artificial way to end ability to load more items.
-            HasMoreItems = counter < 200;
+            CurrentPosition += PageSize;
 
             IsLoadingIncrementally = false;
         }
+
+        protected abstract Task AddItems();
+
+        protected abstract Task<bool> CheckMoreItems();
+
     }
 }
