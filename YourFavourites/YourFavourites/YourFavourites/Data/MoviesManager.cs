@@ -17,7 +17,7 @@ namespace YourFavourites.Data
         private static MoviesManager instance;
 
         public static MoviesManager GetMoviesManager() {
-            if (instance == null) return new MoviesManager();
+            if (instance == null) instance = new MoviesManager();
 
             return instance;
         }
@@ -28,9 +28,7 @@ namespace YourFavourites.Data
         {
             if (movies == null)
             {
-                HttpClient httpClient = new HttpClient();
-                string result = await httpClient.GetStringAsync(baseUrl);
-                movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(result);
+                await GetMovies();
             }
 
             return movies;
@@ -40,9 +38,7 @@ namespace YourFavourites.Data
         {
             if (movies == null)
             {
-                HttpClient httpClient = new HttpClient();
-                string result = await httpClient.GetStringAsync(baseUrl);
-                movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(result);
+                await GetMovies();
             }
 
             return movies.Skip(offset).Take(count);
@@ -52,12 +48,17 @@ namespace YourFavourites.Data
         {
             if (movies == null)
             {
-                HttpClient httpClient = new HttpClient();
-                string result = await httpClient.GetStringAsync(baseUrl);
-                movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(result);
+                await GetMovies();
             }
 
             return movies.Count();
+        }
+
+        private async Task GetMovies()
+        {
+            HttpClient httpClient = new HttpClient();
+            string result = await httpClient.GetStringAsync(baseUrl);
+            movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(result);
         }
     }
 }
