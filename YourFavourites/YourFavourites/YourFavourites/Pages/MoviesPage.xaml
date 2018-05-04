@@ -1,20 +1,23 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:list="clr-namespace:IncrementalListView.FormsPlugin.Abstractions;assembly=IncrementalListView.FormsPlugin.Abstractions"
              x:Class="YourFavourites.MoviesPage">
     <ContentPage.Content>
-        <ListView x:Name="entries">
-            <!--<ListView.BackgroundColor>Blue</ListView.BackgroundColor>-->
+        <list:IncrementalListView ItemsSource="{Binding movies}" PreloadCount="5" RowHeight="88">
+            <x:Arguments>
+                <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+            </x:Arguments>
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <!-- You can do it in the 2 ways-->
-                    <TextCell
-                        Text="{Binding Title}"
-                        Detail="{Binding movie_year}"
-                        DetailColor="Goldenrod"
-                    />
+                    <ViewCell>
+                        <Label Text="{Binding .}"/>
+                    </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>
+            <ListView.Footer>
+                <ActivityIndicator IsRunning="{Binding IsLoadingIncrementally}" IsVisible="{Binding IsLoadingIncrementally}"/>
+            </ListView.Footer>
+        </list:IncrementalListView>
     </ContentPage.Content>
 </ContentPage>

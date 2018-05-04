@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,7 +16,7 @@ namespace YourFavourites.Data
 
         private static MoviesManager instance;
 
-        public static MoviesManager getMoviesManager() {
+        public static MoviesManager GetMoviesManager() {
             if (instance == null) return new MoviesManager();
 
             return instance;
@@ -33,6 +34,30 @@ namespace YourFavourites.Data
             }
 
             return movies;
+        }
+
+        public async Task<IEnumerable<Movie>> GetMovies(int offset, int count)
+        {
+            if (movies == null)
+            {
+                HttpClient httpClient = new HttpClient();
+                string result = await httpClient.GetStringAsync(baseUrl);
+                movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(result);
+            }
+
+            return movies.Skip(offset).Take(count);
+        }
+
+        public async Task<int> CountMovies()
+        {
+            if (movies == null)
+            {
+                HttpClient httpClient = new HttpClient();
+                string result = await httpClient.GetStringAsync(baseUrl);
+                movies = JsonConvert.DeserializeObject<IEnumerable<Movie>>(result);
+            }
+
+            return movies.Count();
         }
     }
 }
