@@ -13,41 +13,22 @@ using YourFavourites.Data;
 namespace YourFavourites
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MoviesPage : ContentPage, ISupportIncrementalLoading
+    public partial class MoviesPage : ContentPage
     {
-        public int PageSize { get; set; } = 10;
-        public bool HasMoreItems { get; set; }
-        public bool IsLoadingIncrementally { get; set; }
-        public ICommand LoadMoreItemsCommand { get; set; }
-
-        private readonly IList<Movie> movies = new ObservableCollection<Movie>();
-        private int currentPosition = 0;
-
         public MoviesPage()
         {
-            BindingContext = movies;
-            LoadMoreItemsCommand = new Command(async () => await LoadMoreItems());
+            BindingContext = new IncrementalViewModel();
 
             InitializeComponent();
         }
 
-        private async Task LoadMoreItems()
+        protected override void OnAppearing()
         {
-            IsLoadingIncrementally = true;
+            base.OnAppearing();
 
-            // Add the newly download data to the collection.
-            IEnumerable<Movie> moviesCollection = await MoviesManager.GetMoviesManager().GetMovies(currentPosition, this.PageSize);
+            IncrementalViewModel vm = BindingContext as IncrementalViewModel;
 
-            foreach (Movie m in moviesCollection)
-            {
-                movies.Add(m);
-            }
-
-            currentPosition += this.PageSize;
-
-            HasMoreItems = await MoviesManager.GetMoviesManager().CountMovies() > currentPosition;
-
-            IsLoadingIncrementally = false;
+            vm.LoadMoreItemsCommand.Execute(null);
         }
     }
 }

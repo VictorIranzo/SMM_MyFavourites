@@ -1,23 +1,35 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             xmlns:list="clr-namespace:IncrementalListView.FormsPlugin.Abstractions;assembly=IncrementalListView.FormsPlugin.Abstractions"
+             xmlns:local="clr-namespace:IncrementalListView.FormsPlugin;assembly=IncrementalListView.FormsPlugin"
              x:Class="YourFavourites.MoviesPage">
     <ContentPage.Content>
-        <list:IncrementalListView ItemsSource="{Binding movies}" PreloadCount="5" RowHeight="88">
+        <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="88">
+
             <x:Arguments>
                 <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
             </x:Arguments>
+
             <ListView.ItemTemplate>
+
                 <DataTemplate>
+
                     <ViewCell>
-                        <Label Text="{Binding Title}"/>
+
+                        <Label Text="{Binding .}"/>
+
                     </ViewCell>
+
                 </DataTemplate>
+
             </ListView.ItemTemplate>
+
             <ListView.Footer>
-                <ActivityIndicator IsRunning="{Binding IsLoadingIncrementally}" IsVisible="{Binding IsLoadingIncrementally}"/>
+
+                <ActivityIndicator Margin="20" IsRunning="{Binding IsLoadingIncrementally}" IsVisible="{Binding IsLoadingIncrementally}"/>
+
             </ListView.Footer>
-        </list:IncrementalListView>
+
+        </local:IncrementalListView>
     </ContentPage.Content>
 </ContentPage>
