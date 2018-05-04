@@ -31,26 +31,21 @@ namespace YourFavourites
             InitializeComponent();
         }
 
-        protected async override void OnAppearing()
-        {
-            base.OnAppearing();
-
-            IEnumerable<Movie> moviesCollection = await MoviesManager.GetMoviesManager().GetAll();
-
-            foreach (Movie m in moviesCollection)
-            {
-                movies.Add(m);
-            }
-        }
-
         private async Task LoadMoreItems()
         {
             IsLoadingIncrementally = true;
 
             // Add the newly download data to the collection.
-            IEnumerable<Movie> moviesToAdd = MoviesManager.GetMoviesManager().
+            IEnumerable<Movie> moviesCollection = await MoviesManager.GetMoviesManager().GetMovies(currentPosition, this.PageSize);
 
-            HasMoreItems = ...
+            foreach (Movie m in moviesCollection)
+            {
+                movies.Add(m);
+            }
+
+            currentPosition += this.PageSize;
+
+            HasMoreItems = await MoviesManager.GetMoviesManager().CountMovies() > currentPosition;
 
             IsLoadingIncrementally = false;
         }
