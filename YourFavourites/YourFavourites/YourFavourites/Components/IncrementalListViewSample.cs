@@ -69,6 +69,8 @@ namespace YourFavourites
         {
             IsLoadingIncrementally = true;
 
+            await Task.Delay(1000);
+
             await AddItems();
 
             HasMoreItems = await CheckMoreItems();

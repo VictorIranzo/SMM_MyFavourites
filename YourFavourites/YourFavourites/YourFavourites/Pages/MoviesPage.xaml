@@ -4,7 +4,7 @@
              xmlns:local="clr-namespace:IncrementalListView.FormsPlugin;assembly=IncrementalListView.FormsPlugin"
              x:Class="YourFavourites.MoviesPage">
     <ContentPage.Content>
-        <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="88">
+        <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200">
 
             <x:Arguments>
                 <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
@@ -15,9 +15,24 @@
                 <DataTemplate>
 
                     <ViewCell>
+                        <Grid>
 
-                        <Label Text="{Binding Title}"/>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
 
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding Image}" />
+                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Title}"/>
+                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding movie_year}"/>
+                            
+                        </Grid>
                     </ViewCell>
 
                 </DataTemplate>

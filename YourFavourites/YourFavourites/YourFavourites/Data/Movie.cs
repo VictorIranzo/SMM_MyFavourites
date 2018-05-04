@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -12,7 +13,8 @@ namespace YourFavourites.Data
         public string movie_year { get; set; }
         public string Categories { get; set; }
         public string summary { get; set; }
-        public string Image_URL { get; set; }
+        [JsonProperty("Image URL")]
+        public string Image { get; set; }
         public string imdb_id { get; set; }
         public string imdb_rating { get; set; }
         public string runtime { get; set; }
