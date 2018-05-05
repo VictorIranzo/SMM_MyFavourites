@@ -5,7 +5,9 @@ VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourFavourites.Android", "YourFavourites\YourFavourites.Android\YourFavourites.Android.csproj", "{42EB575A-BFAD-4527-B374-88D048F3D462}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YourFavourites", "YourFavourites\YourFavourites\YourFavourites.csproj", "{C1AB42E6-A77F-4CBC-9971-B058A44296BE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "YourFavourites", "YourFavourites\YourFavourites\YourFavourites.csproj", "{C1AB42E6-A77F-4CBC-9971-B058A44296BE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidAuthorization", "AndroidAuthorization\AndroidAuthorization.csproj", "{79C8D850-E477-4C34-80A9-74C28034283B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,6 +25,10 @@ Global
 		{C1AB42E6-A77F-4CBC-9971-B058A44296BE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C1AB42E6-A77F-4CBC-9971-B058A44296BE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C1AB42E6-A77F-4CBC-9971-B058A44296BE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{79C8D850-E477-4C34-80A9-74C28034283B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{79C8D850-E477-4C34-80A9-74C28034283B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{79C8D850-E477-4C34-80A9-74C28034283B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{79C8D850-E477-4C34-80A9-74C28034283B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -95,6 +95,10 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\AndroidAuthorization\AndroidAuthorization.csproj">
+      <Project>{79c8d850-e477-4c34-80a9-74c28034283b}</Project>
+      <Name>AndroidAuthorization</Name>
+    </ProjectReference>
     <ProjectReference Include="..\YourFavourites\YourFavourites.csproj">
       <Project>{2E7FA732-E7FA-4DD5-B31B-B8CDD8D24674}</Project>
       <Name>YourFavourites</Name>

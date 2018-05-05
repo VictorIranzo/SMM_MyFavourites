@@ -12,6 +12,7 @@ using Android.Gms.Auth.Api.SignIn;
 using Android.Gms.Auth.Api;
 using Android;
 using Android.Content.PM;
+using AndroidAuthorization;
 
 namespace YourFavourites.Droid
 {
@@ -110,7 +111,9 @@ namespace YourFavourites.Droid
             if (result.IsSuccess)
             {
                 // Signed in successfully, show authenticated UI.
-                var acct = result.SignInAccount;
+                GoogleSignInAccount acct = result.SignInAccount;
+                AccountManager.GetAccountManager().SetAccount(acct);
+
                 mStatusTextView.Text = string.Format(GetString(Resource.String.signed_in_fmt), acct.DisplayName);
                 UpdateUI(true);
             }
