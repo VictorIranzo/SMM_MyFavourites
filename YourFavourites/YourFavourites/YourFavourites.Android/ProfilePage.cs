@@ -5,6 +5,7 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -19,13 +20,52 @@ namespace YourFavourites.Droid
     public class ProfilePage : PageRenderer
     {
         Activity activity;
-        Android.Views.View view;
+        global::Android.Views.View view;
+
 
         public ProfilePage(Context context)
             :base(context)
         {
-            activity = context as Activity;
-            view = activity.LayoutInflater.Inflate(Resource.Layout.ProfileLayout, this, false);    
+        }
+
+        protected override void OnElementChanged(ElementChangedEventArgs<Page> e)
+        {
+            base.OnElementChanged(e);
+
+            if (e.OldElement != null || Element == null)
+            {
+                return;
+            }
+
+            try
+            {
+                SetupUserInterface();
+                SetupEventHandlers();
+                AddView(view);
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(@"ERROR: ", ex.Message);
+            }
+        }
+
+        void SetupUserInterface()
+        {
+            activity = this.Context as Activity;
+            view = activity.LayoutInflater.Inflate(Resource.Layout.ProfileLayout, this, true);
+            View
+        }
+
+        void SetupEventHandlers()
+        {
+            //takePhotoButton = view.FindViewById<global::Android.Widget.Button>(Resource.Id.takePhotoButton);
+            //takePhotoButton.Click += TakePhotoButtonTapped;
+
+            //switchCameraButton = view.FindViewById<global::Android.Widget.Button>(Resource.Id.switchCameraButton);
+            //switchCameraButton.Click += SwitchCameraButtonTapped;
+
+            //toggleFlashButton = view.FindViewById<global::Android.Widget.Button>(Resource.Id.toggleFlashButton);
+            //toggleFlashButton.Click += ToggleFlashButtonTapped;
         }
     }
 }
