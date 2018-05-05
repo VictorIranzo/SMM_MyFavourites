@@ -37,6 +37,9 @@ namespace YourFavourites
                 case "Movies":
                     page = new MoviesPage(this);
                     break;
+                case "Profile":
+                    page = new ProfilePage();
+                    break;
             }
 
             page.Title = item.Title;
