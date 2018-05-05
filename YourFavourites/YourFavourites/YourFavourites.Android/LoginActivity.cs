@@ -112,7 +112,8 @@ namespace YourFavourites.Droid
             {
                 // Signed in successfully, show authenticated UI.
                 GoogleSignInAccount acct = result.SignInAccount;
-                AccountManager.GetAccountManager().SetAccount(acct);
+                AccountManager.SetAccount(acct);
+                AccountManager.SetGoogleApi(mGoogleApiClient);
 
                 mStatusTextView.Text = string.Format(GetString(Resource.String.signed_in_fmt), acct.DisplayName);
                 UpdateUI(true);

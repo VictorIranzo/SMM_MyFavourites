@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AndroidAuthorization;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -23,21 +24,23 @@ namespace YourFavourites
 
             BindingContext = new MainPageMasterViewModel();
             ListView = MenuItemsListView;
+            lblName.Text = AccountManager.GetAccountName();
+            imgUser.Source = AccountManager.GetImageURL();
         }
 
         class MainPageMasterViewModel : INotifyPropertyChanged
         {
             public ObservableCollection<MainPageMenuItem> MenuItems { get; set; }
-            
+
             public MainPageMasterViewModel()
             {
                 MenuItems = new ObservableCollection<MainPageMenuItem>(new[]
                 {
                     new MainPageMenuItem { Id = 1, Title = "Movies" , IconSource = "movie.png"},
-                    new MainPageMenuItem { Id = 2, Title = "Profile" , IconSource= "person.png"},
+                    new MainPageMenuItem { Id = 2, Title = "Profile" , IconSource= "person.png"}
                 });
             }
-            
+
             #region INotifyPropertyChanged Implementation
             public event PropertyChangedEventHandler PropertyChanged;
             void OnPropertyChanged([CallerMemberName] string propertyName = "")

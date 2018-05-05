@@ -8,6 +8,7 @@
               SeparatorVisibility="None"
               HasUnevenRows="true"
               ItemsSource="{Binding MenuItems}">
+        
       <ListView.Header>
         <Grid BackgroundColor="#03A9F4">
           <Grid.ColumnDefinitions>
@@ -21,13 +22,19 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="10"/>
           </Grid.RowDefinitions>
+          <Image
+              Grid.Column="1"
+              Grid.Row="1"
+              x:Name="imgUser"
+              Aspect="AspectFit"/>
           <Label
               Grid.Column="1"
               Grid.Row="2"
-              Text="AppName"
+              x:Name="lblName"
               Style="{DynamicResource SubtitleStyle}"/>
         </Grid>
       </ListView.Header>
+        
       <ListView.ItemTemplate>
         <DataTemplate>
           <ViewCell>

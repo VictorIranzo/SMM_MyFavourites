@@ -13,14 +13,10 @@ namespace YourFavourites
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MainPage : MasterDetailPage
     {
-        private AccountManager accountManager;
-
         public MainPage()
         {
             InitializeComponent();
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
-
-            accountManager = AccountManager.GetAccountManager();
         }
 
         public void SetDetailPage(Page page)
@@ -46,7 +42,7 @@ namespace YourFavourites
                     page = new ProfilePage();
                     break;
                 case "Log out":
-                    accountManager.LogOut();
+                    AccountManager.LogOut();
                     break;
             }
 

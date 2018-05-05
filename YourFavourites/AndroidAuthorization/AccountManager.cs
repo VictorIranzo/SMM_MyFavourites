@@ -5,7 +5,9 @@ using System.Text;
 
 using Android.App;
 using Android.Content;
+using Android.Gms.Auth.Api;
 using Android.Gms.Auth.Api.SignIn;
+using Android.Gms.Common.Apis;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -15,41 +17,42 @@ namespace AndroidAuthorization
 {
     public class AccountManager
     {
-        private static AccountManager instance;
-        private GoogleSignInAccount googleSignInAccount;
+        private static GoogleSignInAccount googleSignInAccount;
+        private static GoogleApiClient mGoogleApiClient;
 
-        public static AccountManager GetAccountManager()
-        {
-            if (instance == null) instance = new AccountManager();
+        private AccountManager() {}
 
-            return instance;
-        }
+        // TODO: Revisar si estos métodos deberían dejar de ser estáticos para implementar correctamente el patrón Singleton.
+        // Si son de instancia, pueden acceder igualmente al atributo estático.
 
-        private AccountManager() { }
-
-        public string GetAccountMail()
+        public static string GetAccountMail()
         {
             throw new NotImplementedException();
         }
 
-        public string GetAccountName()
+        public static string GetAccountName()
         {
-            throw new NotImplementedException();
+            return googleSignInAccount?.DisplayName;
         }
 
-        public string GetImageURL()
+        public static string GetImageURL()
         {
-            throw new NotImplementedException();
+            return googleSignInAccount?.PhotoUrl?.ToString();
         }
 
-        public void LogOut()
+        public static void LogOut()
         {
-            Process.KillProcess(Process.MyPid());
+            Auth.GoogleSignInApi.SignOut(mGoogleApiClient).SetResultCallback(new SignOutResultCallback());
         }
 
-        public void SetAccount(GoogleSignInAccount googleSignInAccount)
+        public static void SetAccount(GoogleSignInAccount newCount)
         {
-            this.googleSignInAccount = googleSignInAccount;
+            googleSignInAccount = newCount;
+        }
+
+        public static void SetGoogleApi(GoogleApiClient newApi)
+        {
+            mGoogleApiClient = newApi;
         }
     }
 }
