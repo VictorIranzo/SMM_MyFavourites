@@ -6,7 +6,7 @@ namespace YourFavourites.Droid
 {
 	public class SignInResultCallback : Object, IResultCallback
 	{
-		public MainActivity Activity { get; set; }
+		public LoginActivity Activity { get; set; }
 
 		public void OnResult(Object result)
 		{
