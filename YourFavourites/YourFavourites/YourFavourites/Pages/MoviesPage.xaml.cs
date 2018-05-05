@@ -16,8 +16,12 @@ namespace YourFavourites
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MoviesPage : ContentPage
     {
-        public MoviesPage()
+        private readonly MainPage mainPage;
+
+        public MoviesPage(MainPage mainPage)
         {
+            this.mainPage = mainPage;
+
             BindingContext = new MoviesListIncrementalView();
 
             InitializeComponent();
@@ -30,6 +34,14 @@ namespace YourFavourites
             MoviesListIncrementalView vm = BindingContext as MoviesListIncrementalView;
 
             vm.LoadMoreItemsCommand.Execute(null);
+        }
+
+        async void OnMovieClick(object sender, ItemTappedEventArgs e)
+        {
+            Page page = new MovieDetails((Movie)e.Item);
+            page.Title = ((Movie)e.Item).Title;
+
+            this.mainPage.SetDetailPage(page);
         }
     }
 }

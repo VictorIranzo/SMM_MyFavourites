@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:IncrementalListView.FormsPlugin;assembly=IncrementalListView.FormsPlugin"
              x:Class="YourFavourites.MoviesPage">
     <ContentPage.Content>
-        <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200">
+        <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200"
+                                   ItemTapped="OnMovieClick">
 
             <x:Arguments>
                 <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>

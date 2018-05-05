@@ -18,17 +18,30 @@ namespace YourFavourites
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
         }
 
+        public void SetDetailPage(Page page)
+        {
+            Detail = new NavigationPage(page);
+            IsPresented = false;
+        }
+
         private void ListView_ItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var item = e.SelectedItem as MainPageMenuItem;
             if (item == null)
                 return;
 
-            var page = (Page)Activator.CreateInstance(item.TargetType);
+            Page page = null;
+
+            switch (item.Title)
+            {
+                case "Movies":
+                    page = new MoviesPage(this);
+                    break;
+            }
+
             page.Title = item.Title;
 
-            Detail = new NavigationPage(page);
-            IsPresented = false;
+            SetDetailPage(page);
 
             MasterPage.ListView.SelectedItem = null;
         }
