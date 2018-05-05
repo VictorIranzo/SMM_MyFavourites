@@ -23,8 +23,20 @@ namespace YourFavourites
 
             InitializeComponent ();
 		}
-	}
 
+        void OnAddFavClicked(Object sender, EventArgs e)
+        {
+
+        }
+
+        private readonly string YouTubeUrl = "https://www.youtube.com/watch?v=";
+        void OnShowTrailerClicked(Object sender, EventArgs e)
+        {
+            Device.OpenUri(new Uri(YouTubeUrl + this.currentMovie.ytid));
+        }
+    }
+
+    // TODO: Check if the film is already a favourite one to update the button.
     // TODO: Renombrar clase.
     // TODO: Back pressed.
 }

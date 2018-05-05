@@ -6,9 +6,13 @@
         <Grid>
 
             <Grid.RowDefinitions>
+                <RowDefinition Height="200"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="20"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="40"/>
             </Grid.RowDefinitions>
 
             <Grid.ColumnDefinitions>
@@ -17,8 +21,19 @@
             </Grid.ColumnDefinitions>
 
             <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding Image}" />
+
             <Label Grid.Row="1" Grid.Column="1" Text="{Binding Title}"/>
             <Label Grid.Row="2" Grid.Column="1" Text="{Binding movie_year}"/>
+
+            <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Categories}"/>
+            
+            <Label Grid.Row="4" Grid.Column="0" Text="Rating:"/>
+            <Label Grid.Row="4" Grid.Column="1" Text="{Binding imdb_rating}"/>
+            
+            <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding summary}"/>
+
+            <Button Grid.Row="6" Grid.Column="0" Text="Add to favourites" Clicked="OnAddFavClicked"/>
+            <Button Grid.Row="6" Grid.Column="1" Text="See trailer" Clicked="OnShowTrailerClicked"/>
 
         </Grid>
     </ContentPage.Content>
