@@ -11,7 +11,9 @@ using Android.Gms.Common.Apis;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
+using Android.Gms.Common;
 using Android.Widget;
+using System.Threading;
 
 namespace AndroidAuthorization
 {
@@ -42,7 +44,11 @@ namespace AndroidAuthorization
 
         public static void LogOut()
         {
-            Auth.GoogleSignInApi.SignOut(mGoogleApiClient).SetResultCallback(new SignOutResultCallback());
+            new Thread(() =>
+            {
+                ConnectionResult result = mGoogleApiClient.BlockingConnect((long)1.5, Java.Util.Concurrent.TimeUnit.Seconds);
+                Auth.GoogleSignInApi.RevokeAccess(mGoogleApiClient).SetResultCallback(new SignOutResultCallback());
+            }).Start();
         }
 
         public static void SetAccount(GoogleSignInAccount newCount)

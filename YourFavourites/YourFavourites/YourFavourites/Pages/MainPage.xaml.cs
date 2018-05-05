@@ -37,13 +37,10 @@ namespace YourFavourites
             {
                 case "Movies":
                     page = new MoviesPage(this);
-                    break;
-                case "Profile":
-                    page = new ProfilePage();
-                    break;
+                    break;                   
                 case "Log out":
                     AccountManager.LogOut();
-                    break;
+                    return;
             }
 
             page.Title = item.Title;
