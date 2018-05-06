@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using YourFavourites.Services;
 
 namespace YourFavourites
 {
@@ -17,6 +18,20 @@ namespace YourFavourites
         {
             InitializeComponent();
             MasterPage.ListView.ItemSelected += ListView_ItemSelected;
+
+            CheckIfUserExists();
+        }
+
+        private void CheckIfUserExists()
+        {
+            FirebaseService firebaseService = new FirebaseService();
+
+            string email = firebaseService.CheckUserExists(AccountManager.GetAccountId()).Result;
+
+            if (email == null)
+            {
+                firebaseService.AddUser(AccountManager.GetAccountId(), AccountManager.GetAccountMail());
+            }
         }
 
         public void SetDetailPage(Page page)

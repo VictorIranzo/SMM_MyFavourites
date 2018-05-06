@@ -27,9 +27,14 @@ namespace AndroidAuthorization
         // TODO: Revisar si estos métodos deberían dejar de ser estáticos para implementar correctamente el patrón Singleton.
         // Si son de instancia, pueden acceder igualmente al atributo estático.
 
+        public static string GetAccountId()
+        {
+            return googleSignInAccount?.Id;
+        }
+
         public static string GetAccountMail()
         {
-            throw new NotImplementedException();
+            return googleSignInAccount?.Email;
         }
 
         public static string GetAccountName()
@@ -46,8 +51,12 @@ namespace AndroidAuthorization
         {
             new Thread(() =>
             {
-                ConnectionResult result = mGoogleApiClient.BlockingConnect((long)1.5, Java.Util.Concurrent.TimeUnit.Seconds);
-                Auth.GoogleSignInApi.RevokeAccess(mGoogleApiClient).SetResultCallback(new SignOutResultCallback());
+                ConnectionResult result = mGoogleApiClient?.BlockingConnect((long)1.5, Java.Util.Concurrent.TimeUnit.Seconds);
+
+                if (mGoogleApiClient.IsConnected)
+                {
+                    Auth.GoogleSignInApi.RevokeAccess(mGoogleApiClient).SetResultCallback(new SignOutResultCallback());
+                }
             }).Start();
         }
 
