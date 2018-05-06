@@ -10,7 +10,7 @@ namespace YourFavourites.Data
 {
     public class MoviesManager
     {
-        private const string baseUrl = "https://hydramovies.com/api-v2/?source=http://hydramovies.com/api-v2/current-Movie-Data.csv";
+        private const string baseUrl = "https://hydramovies.com/api-v2/?source=http://hydramovies.com/api-v2/current-Movie-Data.csv&sort=imdb_rating";
 
         private IEnumerable<Movie> movies;
 
