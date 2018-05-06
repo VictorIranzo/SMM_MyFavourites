@@ -32,7 +32,7 @@
             
             <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding summary}"/>
 
-            <Button Grid.Row="6" Grid.Column="0" Text="Add to favourites" Clicked="OnAddFavClicked"/>
+            <Button x:Name="butAddFavourite" Grid.Row="6" Grid.Column="0" Clicked="OnAddFavClicked"/>
             <Button Grid.Row="6" Grid.Column="1" Text="See trailer" Clicked="OnShowTrailerClicked"/>
 
         </Grid>
