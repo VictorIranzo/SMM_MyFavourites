@@ -22,7 +22,7 @@ namespace YourFavourites
         {
             this.mainPage = mainPage;
 
-            BindingContext = new MoviesListIncrementalView();
+            BindingContext = new MoviesListIncrementalView(MoviesListIncrementalView.TypeLoad.NO_FILTER);
 
             InitializeComponent();
         }
@@ -42,6 +42,20 @@ namespace YourFavourites
             page.Title = ((Movie)e.Item).Title;
 
             this.mainPage.SetDetailPage(page);
+        }
+
+        void OnFindButtonClicked(Object sender, EventArgs e)
+        {
+            string filter = entryFilter.Text.ToLower();
+
+            MoviesListIncrementalView moviesListIncrementalView = null;
+
+            if (filter == "") moviesListIncrementalView = new MoviesListIncrementalView(MoviesListIncrementalView.TypeLoad.NO_FILTER);
+            else moviesListIncrementalView = new MoviesListIncrementalView(MoviesListIncrementalView.TypeLoad.FILTER_BY_TITLE, filter);
+
+            BindingContext = moviesListIncrementalView;
+
+            moviesListIncrementalView.LoadMoreItemsCommand.Execute(null);
         }
     }
 }

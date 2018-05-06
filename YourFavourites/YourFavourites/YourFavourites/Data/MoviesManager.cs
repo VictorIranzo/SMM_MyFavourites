@@ -54,6 +54,11 @@ namespace YourFavourites.Data
             return movies.Count();
         }
 
+        public async Task<IEnumerable<Movie>> FilterByTitle(string title, int offset, int count)
+        {
+            return movies.Where(m => m.Title != null && m.Title.ToLower().Contains(title)).Skip(offset).Take(count);
+        }
+
         private async Task GetMovies()
         {
             HttpClient httpClient = new HttpClient();

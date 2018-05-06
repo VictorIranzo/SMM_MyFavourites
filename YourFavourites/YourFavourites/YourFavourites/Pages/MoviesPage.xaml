@@ -4,48 +4,56 @@
              xmlns:local="clr-namespace:IncrementalListView.FormsPlugin;assembly=IncrementalListView.FormsPlugin"
              x:Class="YourFavourites.MoviesPage">
     <ContentPage.Content>
-        <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200"
-                                   ItemTapped="OnMovieClick">
+        <StackLayout Orientation="Vertical">
 
-            <x:Arguments>
-                <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
-            </x:Arguments>
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="entryFilter" WidthRequest="200"/>
+                <Button Text="Find" Clicked="OnFindButtonClicked"/>
+            </StackLayout>
 
-            <ListView.ItemTemplate>
+            <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200"
+                                       ItemTapped="OnMovieClick">
 
-                <DataTemplate>
+                <x:Arguments>
+                    <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
+                </x:Arguments>
 
-                    <ViewCell>
-                        <Grid>
+                <ListView.ItemTemplate>
 
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                                <RowDefinition Height="*"/>
-                            </Grid.RowDefinitions>
+                    <DataTemplate>
 
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-                                <ColumnDefinition Width="*"/>
-                            </Grid.ColumnDefinitions>
+                        <ViewCell>
+                            <Grid>
 
-                            <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding Image}" />
-                            <Label Grid.Row="1" Grid.Column="1" Text="{Binding Title}"/>
-                            <Label Grid.Row="2" Grid.Column="1" Text="{Binding movie_year}"/>
-                            
-                        </Grid>
-                    </ViewCell>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
 
-                </DataTemplate>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
 
-            </ListView.ItemTemplate>
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding Image}" />
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Title}"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding movie_year}"/>
 
-            <ListView.Footer>
+                            </Grid>
+                        </ViewCell>
 
-                <ActivityIndicator Margin="20" IsRunning="{Binding IsLoadingIncrementally}" IsVisible="{Binding IsLoadingIncrementally}"/>
+                    </DataTemplate>
 
-            </ListView.Footer>
+                </ListView.ItemTemplate>
 
-        </local:IncrementalListView>
+                <ListView.Footer>
+
+                    <ActivityIndicator Margin="20" IsRunning="{Binding IsLoadingIncrementally}" IsVisible="{Binding IsLoadingIncrementally}"/>
+
+                </ListView.Footer>
+
+            </local:IncrementalListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
