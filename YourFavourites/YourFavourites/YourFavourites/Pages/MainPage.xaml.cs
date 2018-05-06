@@ -52,7 +52,10 @@ namespace YourFavourites
             {
                 case "Movies":
                     page = new MoviesPage(this);
-                    break;                   
+                    break;
+                case "Songs":
+                    page = new SongsPage(this);
+                    break;
                 case "Log out":
                     AccountManager.LogOut();
                     return;
