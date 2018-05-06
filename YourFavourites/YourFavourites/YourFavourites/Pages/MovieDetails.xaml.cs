@@ -15,12 +15,14 @@ namespace YourFavourites
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MovieDetails : ContentPage
 	{
+        readonly MoviesPage moviesPage;
         readonly Movie currentMovie;
         bool IsFavourite;
 
-		public MovieDetails (Movie movie)
+		public MovieDetails (Movie movie, MoviesPage moviesPage)
 		{
             this.currentMovie = movie;
+            this.moviesPage = moviesPage;
 
             BindingContext = movie;
 
@@ -65,6 +67,13 @@ namespace YourFavourites
         void OnShowTrailerClicked(Object sender, EventArgs e)
         {
             Device.OpenUri(new Uri(YouTubeUrl + this.currentMovie.ytid));
+        }
+
+        protected override bool OnBackButtonPressed()
+        {
+            this.moviesPage.mainPage.SetDetailPage(this.moviesPage);
+
+            return true;
         }
     }
 

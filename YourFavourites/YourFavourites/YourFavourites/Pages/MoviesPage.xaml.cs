@@ -16,7 +16,7 @@ namespace YourFavourites
     [XamlCompilation(XamlCompilationOptions.Compile)]
     public partial class MoviesPage : ContentPage
     {
-        private readonly MainPage mainPage;
+        public readonly MainPage mainPage;
 
         public MoviesPage(MainPage mainPage)
         {
@@ -38,7 +38,7 @@ namespace YourFavourites
 
         async void OnMovieClick(object sender, ItemTappedEventArgs e)
         {
-            Page page = new MovieDetails((Movie)e.Item);
+            Page page = new MovieDetails((Movie)e.Item, this);
             page.Title = ((Movie)e.Item).Title;
 
             this.mainPage.SetDetailPage(page);
