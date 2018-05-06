@@ -28,7 +28,7 @@ namespace YourFavourites
 
             string email = firebaseService.CheckUserExists(AccountManager.GetAccountId()).Result;
 
-            if (email == null)
+            if (email == "")
             {
                 firebaseService.AddUser(AccountManager.GetAccountId(), AccountManager.GetAccountMail());
             }

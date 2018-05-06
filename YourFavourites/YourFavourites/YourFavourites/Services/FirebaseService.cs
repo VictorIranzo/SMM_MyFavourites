@@ -15,37 +15,39 @@ namespace YourFavourites.Services
 
         public async Task<string> CheckUserExists(string id)
         {
-            HttpClient httpClient = new HttpClient();
+            // Instanciating with base URL  
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
 
-            httpClient.DefaultRequestHeaders.Accept.Add
-                                        (new MediaTypeWithQualityHeaderValue("application/json"));
+            // Referring to Node with name "Teams"  
+            FirebaseDB firebaseDBTeams = firebaseDB.NodePath("users/" + id);
+            FirebaseResponse getResponse = firebaseDBTeams.Get();
 
-            HttpResponseMessage response = await httpClient.GetAsync(BASE_URL + "users/" + id + JSON);
+            if (getResponse.Success)
+            {
+                string s = getResponse.JSONContent;
+
+                if (s.Equals("null")) return "";
+                else return s;
+            }
 
             return "";
         }
 
         public async Task<bool> AddUser(string id, string email)
         {
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
+
+            // Referring to Node with name "Teams"  
+            FirebaseDB firebaseDBTeams = firebaseDB.Node("users");
+
+            string s = "{\"" + id + "\":\"" + email + "\"}";
+
+            FirebaseResponse patchResponse = firebaseDBTeams
+                .Patch(s);
+
             HttpClient httpClient = new HttpClient();
 
-            using (HttpRequestMessage RequestMessage = new HttpRequestMessage(new HttpMethod("PATCH"), BASE_URL + "users" +JSON))
-            {
-                RequestMessage.Content = new StringContent("{" + id + ":" + email + "}", Encoding.UTF8, "application/json");
-                using (HttpResponseMessage ResponseMessage = await httpClient.SendAsync(RequestMessage))
-                {
-                    string result = await ResponseMessage.Content.ReadAsStringAsync();
-
-                    if (ResponseMessage.StatusCode == HttpStatusCode.NoContent)
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
-                }
-            }
+            return true;
         }
     }
 }
