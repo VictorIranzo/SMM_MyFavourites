@@ -21,6 +21,9 @@
     <Compile Update="MainPageMenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\BooksPage.xaml.cs">
+      <DependentUpon>BooksPage.xaml</DependentUpon>
+    </Compile>
     <Compile Update="Pages\SongsPage.xaml.cs">
       <DependentUpon>SongsPage.xaml</DependentUpon>
     </Compile>
