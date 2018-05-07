@@ -39,7 +39,7 @@ namespace YourFavourites
         async void OnMovieClick(object sender, ItemTappedEventArgs e)
         {
             Page page = new MovieDetails((Movie)e.Item, this);
-            page.Title = ((Movie)e.Item).Title;
+            page.Title = ((Movie)e.Item).MainTitle;
 
             this.mainPage.SetDetailPage(page);
         }

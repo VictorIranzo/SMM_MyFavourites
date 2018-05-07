@@ -56,7 +56,7 @@ namespace YourFavourites.Data
 
         public async Task<IEnumerable<Movie>> FilterByTitle(string title, int offset, int count)
         {
-            return movies.Where(m => m.Title != null && m.Title.ToLower().Contains(title)).Skip(offset).Take(count);
+            return movies.Where(m => m.MainTitle != null && m.MainTitle.ToLower().Contains(title)).Skip(offset).Take(count);
         }
 
         private async Task GetMovies()

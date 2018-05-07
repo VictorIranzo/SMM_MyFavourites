@@ -5,22 +5,32 @@ using System.Text;
 
 namespace YourFavourites.Data
 {
-    public class Movie
+    public class Movie : IElement
     {
-        // TODO: Rename and use JsonProperty.
+        [JsonProperty("imdb_id")]
+        public string Id { get; set; }
 
-        public string user_id { get; set; }
-        public string Title { get; set; }
-        public string fulltitle { get; set; }
-        public string movie_year { get; set; }
-        public string Categories { get; set; }
-        public string summary { get; set; }
+        public int TypeElement { get; set; } = (int) ElementType.Movie;
+
+        [JsonProperty("Title")]
+        public string MainTitle { get; set; }
+
+        [JsonProperty("imdb_rating")]
+        public string SecondTitle { get; set; }
+
         [JsonProperty("Image URL")]
-        public string Image { get; set; }
-        public string imdb_id { get; set; }
-        public string imdb_rating { get; set; }
-        public string runtime { get; set; }
-        public string language { get; set; }
-        public string ytid { get; set; }
+        public string ImageUrl { get; set; }
+
+        [JsonProperty("summary")]
+        public string Description { get; set; }
+
+        [JsonProperty("Categories")]
+        public string FirstFeature { get; set; }
+
+        [JsonProperty("movie_year")]
+        public string SecondFeature { get; set; }
+
+        [JsonProperty("ytid")]
+        public string YouTubeLink { get; set; }
     }
 }

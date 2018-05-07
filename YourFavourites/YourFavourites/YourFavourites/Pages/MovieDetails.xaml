@@ -21,17 +21,16 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding Image}" />
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" />
 
-                <Label Grid.Row="1" Grid.Column="1" Text="{Binding Title}"/>
-                <Label Grid.Row="2" Grid.Column="1" Text="{Binding movie_year}"/>
+                <Label Grid.Row="1" Grid.Column="1" Text="{Binding MainTitle}"/>
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding SecondTitle}"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Categories}"/>
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FirstFeature}"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Text="Rating:"/>
-                <Label Grid.Row="4" Grid.Column="1" Text="{Binding imdb_rating}"/>
+                <Label Grid.Row="4" Grid.Column="0" Text="{Binding SecondFeature}"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding summary}"/>
+                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Description}"/>
 
                 <Button x:Name="butAddFavourite" Grid.Row="6" Grid.Column="0" Clicked="OnAddFavClicked"/>
                 <Button Grid.Row="6" Grid.Column="1" Text="See trailer" Clicked="OnShowTrailerClicked"/>

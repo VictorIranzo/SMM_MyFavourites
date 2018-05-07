@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,11 +16,11 @@ namespace YourFavourites.Services
     {
         private readonly string BASE_URL = "https://smm-yourfavourites.firebaseio.com/";
 
-        public async Task<string> CheckUserExists(string id)
+        public async Task<string> CheckUserExists(string user_id)
         {
             FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
 
-            FirebaseDB firebaseDBUsers = firebaseDB.NodePath("users/" + id);
+            FirebaseDB firebaseDBUsers = firebaseDB.NodePath("users/" + user_id);
 
             FirebaseResponse getResponse = firebaseDBUsers.Get();
 
@@ -48,27 +49,44 @@ namespace YourFavourites.Services
             return patchResponse.Success;
         }
 
-        public async Task<bool> AddFavouriteMovie(string user_id, Movie movie)
+        private string GetRootOfElement(int elementType)
         {
+            switch (elementType)
+            {
+                case (int)ElementType.Book: return "/fav_books/";
+                case (int)ElementType.Movie: return "/fav_movies/";
+                case (int)ElementType.Song: return "/fav_songs/";
+            }
+
+            return "";
+        }
+
+        public async Task<bool> AddFavourite(string user_id, IElement element)
+        {
+            // TODO: Test this method.
+
             FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
 
-            string path = user_id + "/fav_movies/"; 
+            string path = user_id + GetRootOfElement(element.TypeElement);
 
-            FirebaseDB firebaseDBUserFavMovies = firebaseDB.NodePath(path);
+            FirebaseDB firebaseDBUserFavItems = firebaseDB.NodePath(path);
 
-            string movieToAdd = "{\"" + movie.imdb_id + "\":\"" + movie.Title + "\"}";
+            IDictionary<string, IElement> IdElementPair = new Dictionary<string, IElement>();
+            IdElementPair.Add(element.Id, element);
 
-            FirebaseResponse patchResponse = firebaseDBUserFavMovies
-                .Patch(movieToAdd);
+            string favToAdd = JsonConvert.SerializeObject(IdElementPair);
+
+            FirebaseResponse patchResponse = firebaseDBUserFavItems
+                .Patch(favToAdd);
 
             return patchResponse.Success;
         }
 
-        public async Task<bool> RemoveFavouriteMovie(string user_id, Movie movie)
+        public async Task<bool> RemoveFavourite(string user_id, IElement element)
         {
             FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
 
-            string path = user_id + "/fav_movies/" + movie.imdb_id;
+            string path = user_id + GetRootOfElement(element.TypeElement) + element.Id;
 
             FirebaseDB firebaseDBRemoveFavMovies = firebaseDB.NodePath(path);
 
@@ -78,19 +96,43 @@ namespace YourFavourites.Services
             return deleteResponse.Success;
         }
 
-        public async Task<bool> CheckIfIsFavourite(string user_id, Movie movie)
+        public async Task<bool> CheckIfIsFavourite(string user_id, IElement element)
         {
             FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
 
-            string path = user_id + "/fav_movies/";
+            string path = user_id + GetRootOfElement(element.TypeElement);
 
             FirebaseDB firebaseDBUserFavMovies = firebaseDB.NodePath(path);
 
             FirebaseResponse getResponse = firebaseDBUserFavMovies.Get();
 
-            IDictionary<string, string>  favMovies = JsonConvert.DeserializeObject<IDictionary<string, string>>(getResponse.JSONContent);
+            IEnumerable<string> elementKeys = null;
+            switch (element.TypeElement)
+            {
+                case (int)ElementType.Book: elementKeys = DeserializeBooks(getResponse.JSONContent).Keys;
+                    break;
+                case (int)ElementType.Movie: elementKeys = DeserializeMovies(getResponse.JSONContent).Keys;
+                    break;
+                case (int)ElementType.Song: elementKeys = DeserializeSongs(getResponse.JSONContent).Keys;
+                    break;
+            }
 
-            return favMovies == null ? false : favMovies.Keys.Contains(movie.imdb_id);
+            return elementKeys == null ? false : elementKeys.Contains(element.Id);            
+        }
+
+        private Dictionary<string, Book> DeserializeBooks(string jSONContent)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, Book>>(jSONContent);
+        }
+
+        private Dictionary<string, Movie> DeserializeMovies(string jSONContent)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, Movie>>(jSONContent);
+        }
+
+        private Dictionary<string, Song> DeserializeSongs(string jSONContent)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, Song>>(jSONContent);
         }
     }
 }

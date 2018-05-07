@@ -45,12 +45,12 @@ namespace YourFavourites
 
             if (IsFavourite)
             {
-                firebaseService.RemoveFavouriteMovie(AccountManager.GetAccountId(), currentMovie);
+                firebaseService.RemoveFavourite(AccountManager.GetAccountId(), currentMovie);
                 IsFavourite = false;
             }
             else
             {
-                firebaseService.AddFavouriteMovie(AccountManager.GetAccountId(), currentMovie);
+                firebaseService.AddFavourite(AccountManager.GetAccountId(), currentMovie);
                 IsFavourite = true;
             }
 
@@ -66,7 +66,7 @@ namespace YourFavourites
         private readonly string YouTubeUrl = "https://www.youtube.com/watch?v=";
         void OnShowTrailerClicked(Object sender, EventArgs e)
         {
-            Device.OpenUri(new Uri(YouTubeUrl + this.currentMovie.ytid));
+            Device.OpenUri(new Uri(YouTubeUrl + this.currentMovie.YouTubeLink));
         }
 
         protected override bool OnBackButtonPressed()
