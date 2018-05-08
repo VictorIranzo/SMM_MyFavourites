@@ -90,7 +90,7 @@ namespace YourFavourites.Services
             
             if (u == null) return "The user doesn't exist";
 
-            // TODO: Check if is already your friend.
+            if (CheckIfIsYourFriend(user_id, friend_email)) return "The user is already your friend";
 
             Friend friend = new Friend() { FriendId = u.Id };
 
@@ -109,6 +109,25 @@ namespace YourFavourites.Services
             .Patch(friendToAdd);
 
             return patchResponse.Success ? "Friend added correctly" : "A problem appears adding a friend";
+        }
+
+        private bool CheckIfIsYourFriend(string user_id, string friend_email)
+        {
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
+
+            FirebaseDB firebaseDBUserFriend = firebaseDB.NodePath(user_id + "/friends/" + friend_email.Replace('.', ','));
+
+            FirebaseResponse getResponse = firebaseDBUserFriend.Get();
+
+            if (getResponse.Success)
+            {
+                string response = getResponse.JSONContent;
+
+                if (response.Equals("null")) return false;
+                else return true;
+            }
+
+            return false;
         }
 
         private User GetUserByEmail(string email)
