@@ -41,14 +41,12 @@ namespace YourFavourites
             }
         }
 
-        async void OnSongClick(object sender, ItemTappedEventArgs e)
+        async void OnBookClicked(object sender, ItemTappedEventArgs e)
         {
-            /*
-            Page page = new MovieDetails((Movie)e.Item, this);
-            page.Title = ((Movie)e.Item).Title;
+            Page page = new BookDetails((Book)e.Item, this);
+            page.Title = ((Book)e.Item).MainTitle;
 
             this.mainPage.SetDetailPage(page);
-            */
         }
 
         async void OnPickerSelectedItem(object sender, EventArgs e)

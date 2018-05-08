@@ -8,7 +8,7 @@
             <Picker x:Name="listPicker" SelectedIndexChanged="OnPickerSelectedItem" WidthRequest="200"/>
 
             <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200"
-                                       ItemTapped="OnSongClick">
+                                       ItemTapped="OnBookClicked">
 
                 <x:Arguments>
                     <ListViewCachingStrategy>RecycleElement</ListViewCachingStrategy>
