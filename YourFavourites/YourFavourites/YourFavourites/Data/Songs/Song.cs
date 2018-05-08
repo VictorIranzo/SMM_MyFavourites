@@ -12,7 +12,7 @@ namespace YourFavourites.Data
         [JsonProperty("mbid")]
         public string Id {get; set;}
 
-        public int TypeElement {get; set;}
+        public int TypeElement {get; set; } = (int)ElementType.Song;
 
         [JsonProperty("name")]
         public string MainTitle {get; set;}

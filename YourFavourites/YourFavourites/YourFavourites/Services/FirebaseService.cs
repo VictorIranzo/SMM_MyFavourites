@@ -71,6 +71,12 @@ namespace YourFavourites.Services
 
             FirebaseDB firebaseDBUserFavItems = firebaseDB.NodePath(path);
 
+            if (element is Song)
+            {
+                ((Song)element).image = null;
+                ((Song)element).artist = null;
+            }
+
             IDictionary<string, IElement> IdElementPair = new Dictionary<string, IElement>();
             IdElementPair.Add(element.Id, element);
 
@@ -105,6 +111,8 @@ namespace YourFavourites.Services
             FirebaseDB firebaseDBUserFavMovies = firebaseDB.NodePath(path);
 
             FirebaseResponse getResponse = firebaseDBUserFavMovies.Get();
+
+            if (getResponse.JSONContent.Equals("null")) return false;
 
             IEnumerable<string> elementKeys = null;
             switch (element.TypeElement)

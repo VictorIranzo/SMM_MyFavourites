@@ -38,12 +38,10 @@ namespace YourFavourites
 
         async void OnSongClick(object sender, ItemTappedEventArgs e)
         {
-            /*
-            Page page = new MovieDetails((Movie)e.Item, this);
-            page.Title = ((Movie)e.Item).Title;
+            Page page = new SongDetails((Song)e.Item, this);
+            page.Title = ((Song)e.Item).MainTitle;
 
             this.mainPage.SetDetailPage(page);
-            */
         }
     }
 }

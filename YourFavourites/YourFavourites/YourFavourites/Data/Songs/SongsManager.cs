@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace YourFavourites.Data
             string result = await httpClient.GetStringAsync(baseUrl + "&page=" + offset + "&limit=" + count);
             SongsRoot root = JsonConvert.DeserializeObject<SongsRoot>(result);
 
-            return root.tracks.track;
+            return root.tracks.track.Where(s=> !string.IsNullOrEmpty(s.Id));
         }
     }
 }

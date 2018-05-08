@@ -18,13 +18,13 @@
     <Compile Condition=" '$(EnableDefaultCompileItems)' == 'true' " Update="Pages\App.xaml.cs">
       <DependentUpon>*.xaml</DependentUpon>
     </Compile>
-    <Compile Update="MainPageMenuItem.cs">
+    <Compile Update="Components\MainPageMenuItem.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Pages\BooksPage.xaml.cs">
+    <Compile Update="Pages\Books\BooksPage.xaml.cs">
       <DependentUpon>BooksPage.xaml</DependentUpon>
     </Compile>
-    <Compile Update="Pages\SongsPage.xaml.cs">
+    <Compile Update="Pages\Songs\SongsPage.xaml.cs">
       <DependentUpon>SongsPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
@@ -39,10 +39,13 @@
     <EmbeddedResource Update="Pages\MainPageMaster.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\MovieDetails.xaml">
+    <EmbeddedResource Update="Pages\Movies\MovieDetails.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Pages\MoviesPage.xaml">
+    <EmbeddedResource Update="Pages\Movies\MoviesPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Pages\Songs\SongDetails.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
     </EmbeddedResource>
   </ItemGroup>
