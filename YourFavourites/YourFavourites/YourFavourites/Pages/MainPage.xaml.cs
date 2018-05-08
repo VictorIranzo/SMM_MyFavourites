@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using YourFavourites.Data;
 using YourFavourites.Services;
 
 namespace YourFavourites
@@ -26,11 +27,19 @@ namespace YourFavourites
         {
             FirebaseService firebaseService = new FirebaseService();
 
-            string email = firebaseService.CheckUserExists(AccountManager.GetAccountId()).Result;
-
-            if (email == "")
+            User user = new User()
             {
-                firebaseService.AddUser(AccountManager.GetAccountId(), AccountManager.GetAccountMail());
+                Id = AccountManager.GetAccountId(),
+                Email = AccountManager.GetAccountMail().Replace('.', ','),
+                Name = AccountManager.GetAccountName(),
+                UrlImage = AccountManager.GetImageURL()
+            };
+
+            bool existsUser = firebaseService.CheckUserExists(user).Result;
+
+            if (!existsUser)
+            {
+                firebaseService.AddUser(user);
             }
         }
 

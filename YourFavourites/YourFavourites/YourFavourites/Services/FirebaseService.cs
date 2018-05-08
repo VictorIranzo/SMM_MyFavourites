@@ -16,11 +16,11 @@ namespace YourFavourites.Services
     {
         private readonly string BASE_URL = "https://smm-yourfavourites.firebaseio.com/";
 
-        public async Task<string> CheckUserExists(string user_id)
+        public async Task<bool> CheckUserExists(User user)
         {
             FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
 
-            FirebaseDB firebaseDBUsers = firebaseDB.NodePath("users/" + user_id);
+            FirebaseDB firebaseDBUsers = firebaseDB.NodePath("users/" + user.Email);
 
             FirebaseResponse getResponse = firebaseDBUsers.Get();
 
@@ -28,20 +28,23 @@ namespace YourFavourites.Services
             {
                 string response = getResponse.JSONContent;
 
-                if (response.Equals("null")) return "";
-                else return response;
+                if (response.Equals("null")) return false;
+                else return true;
             }
 
-            return "";
+            return false;
         }
 
-        public async Task<bool> AddUser(string user_id, string email)
+        public async Task<bool> AddUser(User user)
         {
             FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
 
             FirebaseDB firebaseDBUsers = firebaseDB.Node("users");
 
-            string userToAdd = "{\"" + user_id + "\":\"" + email + "\"}";
+            IDictionary<string, User> IdElementPair = new Dictionary<string, User>();
+            IdElementPair.Add(user.Email, user);
+
+            string userToAdd = JsonConvert.SerializeObject(IdElementPair);
 
             FirebaseResponse patchResponse = firebaseDBUsers
                 .Patch(userToAdd);
