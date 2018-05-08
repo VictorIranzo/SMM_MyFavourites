@@ -21,7 +21,7 @@ namespace YourFavourites.Components
         protected async override Task AddItems()
         {
             IEnumerable<Book> booksCollection = null;
-            booksCollection = await new BooksManager().GetBooks(this.CurrentPosition, this.PageSize, this.category);
+            booksCollection = await BooksManager.GetBooksManager().GetBooks(this.CurrentPosition, this.PageSize, this.category);
 
             foreach (Book book in booksCollection)
             {

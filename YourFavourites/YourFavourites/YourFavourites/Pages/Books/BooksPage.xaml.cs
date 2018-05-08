@@ -22,7 +22,7 @@ namespace YourFavourites
         {
             this.mainPage = mainPage;
 
-            BindingContext = new SongsListIncrementalView();
+            BindingContext = new BooksIncrementalView(BooksManager.Categories.Values.FirstOrDefault());
 
             InitializeComponent();
         }
@@ -31,9 +31,14 @@ namespace YourFavourites
         {
             base.OnAppearing();
 
-            SongsListIncrementalView vm = BindingContext as SongsListIncrementalView;
+            BooksIncrementalView vm = BindingContext as BooksIncrementalView;
 
             vm.LoadMoreItemsCommand.Execute(null);
+
+            foreach (string category in BooksManager.Categories.Keys)
+            {
+                listPicker.Items.Add(category);
+            }
         }
 
         async void OnSongClick(object sender, ItemTappedEventArgs e)
@@ -44,6 +49,20 @@ namespace YourFavourites
 
             this.mainPage.SetDetailPage(page);
             */
+        }
+
+        async void OnPickerSelectedItem(object sender, EventArgs e)
+        {
+            BooksIncrementalView booksListIncrementalView = null;
+
+            string selectedCategory = listPicker.Items[listPicker.SelectedIndex];
+            string listName = BooksManager.GetListNameByCategory(selectedCategory);
+
+            booksListIncrementalView = new BooksIncrementalView(listName);
+
+            BindingContext = booksListIncrementalView;
+
+            booksListIncrementalView.LoadMoreItemsCommand.Execute(null);
         }
     }
 }

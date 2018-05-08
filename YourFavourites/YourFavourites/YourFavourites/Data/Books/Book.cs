@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,13 +7,26 @@ namespace YourFavourites.Data
 {
     public class Book : IElement
     {
-        public string Id { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public int TypeElement { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string MainTitle { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string SecondTitle { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string ImageUrl { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string Description { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string FirstFeature { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
-        public string SecondFeature { get => throw new NotImplementedException(); set => throw new NotImplementedException(); }
+        [JsonProperty("primary_isbn13")]
+        public string Id {get; set;}
+
+        public int TypeElement { get; set; } = (int)ElementType.Book;
+
+        [JsonProperty("title")]
+        public string MainTitle {get; set;}
+
+        [JsonProperty("author")]
+        public string SecondTitle {get; set;}
+
+        public string ImageUrl {get; set;}
+
+        [JsonProperty("description")]
+        public string Description {get; set;}
+
+        [JsonProperty("contributor")]
+        public string FirstFeature {get; set;}
+
+        [JsonProperty("publisher")]
+        public string SecondFeature {get; set;}
     }
 }

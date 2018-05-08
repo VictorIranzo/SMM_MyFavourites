@@ -56,6 +56,9 @@ namespace YourFavourites
                 case "Songs":
                     page = new SongsPage(this);
                     break;
+                case "Books":
+                    page = new BooksPage(this);
+                    break;
                 case "Log out":
                     AccountManager.LogOut();
                     return;

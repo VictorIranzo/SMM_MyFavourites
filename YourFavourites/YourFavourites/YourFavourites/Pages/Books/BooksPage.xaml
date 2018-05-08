@@ -5,7 +5,8 @@
              x:Class="YourFavourites.BooksPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
-            
+            <Picker x:Name="listPicker" SelectedIndexChanged="OnPickerSelectedItem" WidthRequest="200"/>
+
             <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200"
                                        ItemTapped="OnSongClick">
 
@@ -31,9 +32,9 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding Image}" />
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding name}"/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding ArtistName}"/>
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" />
+                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding MainTitle}"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding SecondTitle}"/>
 
                             </Grid>
                         </ViewCell>
