@@ -57,6 +57,13 @@ namespace YourFavourites
             SetFavButton();
         }
 
+        private string GoogleUrl = @"https://www.google.es/search?q=";
+        void OnBuyClicked(Object sender, EventArgs e)
+        {
+            Device.OpenUri(new Uri(GoogleUrl + this.currentBook.Id));
+        }
+
+
         private void SetFavButton()
         {
             if (IsFavourite) butAddFavourite.Text = "Remove from favourites";
