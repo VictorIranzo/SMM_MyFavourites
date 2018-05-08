@@ -14,13 +14,13 @@ using YourFavourites.Data;
 namespace YourFavourites
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MoviesPage : ContentPage
+    public partial class MoviesPage : ContentPage, BackablePage
     {
-        public readonly MainPage mainPage;
+        public MainPage MainPage { get; set; }
 
         public MoviesPage(MainPage mainPage)
         {
-            this.mainPage = mainPage;
+            this.MainPage = mainPage;
 
             BindingContext = new MoviesListIncrementalView(MoviesListIncrementalView.TypeLoad.NO_FILTER);
 
@@ -41,7 +41,7 @@ namespace YourFavourites
             Page page = new MovieDetails((Movie)e.Item, this);
             page.Title = ((Movie)e.Item).MainTitle;
 
-            this.mainPage.SetDetailPage(page);
+            this.MainPage.SetDetailPage(page);
         }
 
         void OnFindButtonClicked(Object sender, EventArgs e)

@@ -15,11 +15,11 @@ namespace YourFavourites
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class SongDetails : ContentPage
 	{
-        readonly SongsPage songsPage;
+        readonly BackablePage songsPage;
         readonly Song currentSong;
         bool IsFavourite;
 
-        public SongDetails(Song song, SongsPage songsPage)
+        public SongDetails(Song song, BackablePage songsPage)
         {
             this.currentSong = song;
             this.songsPage = songsPage;
@@ -65,7 +65,7 @@ namespace YourFavourites
 
         protected override bool OnBackButtonPressed()
         {
-            this.songsPage.mainPage.SetDetailPage(this.songsPage);
+            this.songsPage.MainPage.SetDetailPage((Page)this.songsPage);
 
             return true;
         }

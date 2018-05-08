@@ -14,13 +14,13 @@ using YourFavourites.Data;
 namespace YourFavourites
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class SongsPage : ContentPage
+    public partial class SongsPage : ContentPage, BackablePage
     {
-        public readonly MainPage mainPage;
+        public MainPage MainPage { get; set; }
 
         public SongsPage(MainPage mainPage)
         {
-            this.mainPage = mainPage;
+            this.MainPage = mainPage;
 
             BindingContext = new SongsListIncrementalView();
 
@@ -41,7 +41,7 @@ namespace YourFavourites
             Page page = new SongDetails((Song)e.Item, this);
             page.Title = ((Song)e.Item).MainTitle;
 
-            this.mainPage.SetDetailPage(page);
+            this.MainPage.SetDetailPage(page);
         }
     }
 }

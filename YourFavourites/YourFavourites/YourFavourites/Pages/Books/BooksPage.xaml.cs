@@ -14,13 +14,13 @@ using YourFavourites.Data;
 namespace YourFavourites
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class BooksPage : ContentPage
+    public partial class BooksPage : ContentPage, BackablePage
     {
-        public readonly MainPage mainPage;
+        public MainPage MainPage { get; set; }
 
         public BooksPage(MainPage mainPage)
         {
-            this.mainPage = mainPage;
+            this.MainPage = mainPage;
 
             BindingContext = new BooksIncrementalView(BooksManager.Categories.Values.FirstOrDefault());
 
@@ -46,7 +46,7 @@ namespace YourFavourites
             Page page = new BookDetails((Book)e.Item, this);
             page.Title = ((Book)e.Item).MainTitle;
 
-            this.mainPage.SetDetailPage(page);
+            this.MainPage.SetDetailPage(page);
         }
 
         async void OnPickerSelectedItem(object sender, EventArgs e)

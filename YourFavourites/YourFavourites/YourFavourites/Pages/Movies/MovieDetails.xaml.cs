@@ -15,11 +15,11 @@ namespace YourFavourites
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class MovieDetails : ContentPage
 	{
-        readonly MoviesPage moviesPage;
+        readonly BackablePage moviesPage;
         readonly Movie currentMovie;
         bool IsFavourite;
 
-		public MovieDetails (Movie movie, MoviesPage moviesPage)
+		public MovieDetails (Movie movie, BackablePage moviesPage)
 		{
             this.currentMovie = movie;
             this.moviesPage = moviesPage;
@@ -71,13 +71,9 @@ namespace YourFavourites
 
         protected override bool OnBackButtonPressed()
         {
-            this.moviesPage.mainPage.SetDetailPage(this.moviesPage);
+            this.moviesPage.MainPage.SetDetailPage((Page)this.moviesPage);
 
             return true;
         }
     }
-
-    // TODO: Check if the film is already a favourite one to update the button.
-    // TODO: Renombrar clase.
-    // TODO: Back pressed.
 }

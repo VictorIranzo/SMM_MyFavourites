@@ -12,13 +12,13 @@ using YourFavourites.Data;
 namespace YourFavourites
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
-	public partial class FavouritesPage : ContentPage
+	public partial class FavouritesPage : BackablePage
 	{
-        public readonly MainPage mainPage;
+        public MainPage MainPage { get; set; }
 
         public FavouritesPage(MainPage mainPage)
         {
-            this.mainPage = mainPage;
+            this.MainPage = mainPage;
 
             BindingContext = new FavouritesListIncrementalView();
 
@@ -42,16 +42,16 @@ namespace YourFavourites
 
             switch ((int)element.TypeElement)
             {
-                case (int)ElementType.Book: page = new BookDetails((Book)element, null);
+                case (int)ElementType.Book: page = new BookDetails((Book)element, this);
                     break;
-                case (int)ElementType.Movie: page = new MovieDetails((Movie)element, null);
+                case (int)ElementType.Movie: page = new MovieDetails((Movie)element, this);
                     break;
-                case (int)ElementType.Song: page = new SongDetails((Song)element, null);
+                case (int)ElementType.Song: page = new SongDetails((Song)element, this);
                     break;
             }
             page.Title = element.MainTitle;
 
-            this.mainPage.SetDetailPage(page);
+            this.MainPage.SetDetailPage(page);
         }
     }
 }

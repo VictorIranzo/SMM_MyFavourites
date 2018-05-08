@@ -15,11 +15,11 @@ namespace YourFavourites
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class BookDetails : ContentPage
 	{
-        readonly BooksPage booksPage;
+        readonly BackablePage booksPage;
         readonly Book currentBook;
         bool IsFavourite;
 
-        public BookDetails(Book book, BooksPage booksPage)
+        public BookDetails(Book book, BackablePage booksPage)
         {
             this.currentBook = book;
             this.booksPage = booksPage;
@@ -65,7 +65,7 @@ namespace YourFavourites
 
         protected override bool OnBackButtonPressed()
         {
-            this.booksPage.mainPage.SetDetailPage(this.booksPage);
+            this.booksPage.MainPage.SetDetailPage((Page)this.booksPage);
 
             return true;
         }
