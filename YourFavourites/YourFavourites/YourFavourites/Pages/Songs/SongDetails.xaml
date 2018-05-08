@@ -33,7 +33,8 @@
                 <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Description}"/>
 
                 <Button x:Name="butAddFavourite" Grid.Row="6" Grid.Column="0" Clicked="OnAddFavClicked"/>
-                
+                <Button Grid.Row="6" Grid.Column="1" Text="Listen song" Clicked="OnListenSongClicked"/>
+
             </Grid>
         </ScrollView>
     </ContentPage.Content>

@@ -69,5 +69,11 @@ namespace YourFavourites
 
             return true;
         }
+
+        void OnListenSongClicked(Object sender, EventArgs e)
+        {
+            YouTubeService.OpenFirstYouTubeVide(this.currentSong.MainTitle);
+        }
+
     }
 }
