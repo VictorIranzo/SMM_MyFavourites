@@ -71,6 +71,9 @@ namespace YourFavourites
                 case "Books":
                     page = new BooksPage(this);
                     break;
+                case "Friends":
+                    page = new FriendsPage(this);
+                    break;
                 case "Log out":
                     AccountManager.LogOut();
                     return;

@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using AndroidAuthorization;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
@@ -52,6 +53,88 @@ namespace YourFavourites.Services
             return patchResponse.Success;
         }
 
+        public async Task<IEnumerable<User>> GetUserFriends(string user_id)
+        {
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
+            string pathFavoriteBooks = user_id + "/friends";
+
+            FirebaseDB firebaseDBUserFavorites = firebaseDB.NodePath(pathFavoriteBooks);
+            FirebaseResponse getResponse = firebaseDBUserFavorites.Get();
+
+            if (getResponse.JSONContent.Equals("null")) return new List<User>();
+
+            IEnumerable<string> friendMails = DeserializeFriends(getResponse.JSONContent).Keys;
+
+            List<User> friends = new List<User>();
+
+            foreach (string email in friendMails)
+            {
+                User u = GetUserByEmail(email);
+                if(u != null) friends.Add(u);
+            }
+
+            return friends;
+        }
+
+        private Dictionary<string, Friend> DeserializeFriends(string jSONContent)
+        {
+            return JsonConvert.DeserializeObject<Dictionary<string, Friend>>(jSONContent);
+        }
+
+        public async Task<string> AddFriend(string user_id, string friend_email)
+        {
+            if (friend_email.Equals(AccountManager.GetAccountMail().Replace('.', ',')))
+                return "You cannot add yourshelve as a friend";
+
+            User u = GetUserByEmail(friend_email);
+            
+            if (u == null) return "The user doesn't exist";
+
+            // TODO: Check if is already your friend.
+
+            Friend friend = new Friend() { FriendId = u.Id };
+
+            IDictionary<string, Friend> IdElementPair = new Dictionary<string, Friend>();
+            IdElementPair.Add(friend_email, friend);
+
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
+
+            string path = user_id + "/friends";
+
+            FirebaseDB firebaseDBUserFavItems = firebaseDB.NodePath(path);
+
+            string friendToAdd = JsonConvert.SerializeObject(IdElementPair);
+
+            FirebaseResponse patchResponse = firebaseDBUserFavItems
+            .Patch(friendToAdd);
+
+            return patchResponse.Success ? "Friend added correctly" : "A problem appears adding a friend";
+        }
+
+        private User GetUserByEmail(string email)
+        {
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
+
+            FirebaseDB firebaseDBUsers = firebaseDB.NodePath("users/" + email);
+
+            FirebaseResponse getResponse = firebaseDBUsers.Get();
+
+            if (getResponse.Success)
+            {
+                string response = getResponse.JSONContent;
+
+                if (response.Equals("null")) return null;
+                else
+                {
+                    User u = JsonConvert.DeserializeObject<User>(response);
+
+                    return u;
+                }
+            }
+
+            return null;
+        }
+
         private string GetRootOfElement(int elementType)
         {
             switch (elementType)
@@ -66,8 +149,6 @@ namespace YourFavourites.Services
 
         public async Task<bool> AddFavourite(string user_id, IElement element)
         {
-            // TODO: Test this method.
-
             FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
 
             string path = user_id + GetRootOfElement(element.TypeElement);

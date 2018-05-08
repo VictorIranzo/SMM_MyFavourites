@@ -2,20 +2,27 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="YourFavourites.FriendsPage">
-    
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add Friend" Icon="add.png" Clicked="OnAddFriend" />
-    </ContentPage.ToolbarItems>
-    
     <ContentPage.Content>
-        <ListView ItemsSource="{Binding}"
-          ItemTapped="OnSelectedFriend">
-            <ListView.ItemTemplate>
-                <DataTemplate>
-                    <TextCell Text="{Binding Title}" Detail="{Binding Genre}">
-                    </TextCell>
-                </DataTemplate>
-            </ListView.ItemTemplate>
-        </ListView>
+        <StackLayout Orientation="Vertical">
+
+            <StackLayout Orientation="Horizontal">
+                <Entry x:Name="friendsMail" WidthRequest="200" Placeholder="Enter your friend's email."/>
+                <Button Text="Add" Clicked="OnAddFriend"/>
+            </StackLayout>
+            
+            <ListView ItemsSource="{Binding}" RowHeight="100"
+                ItemTapped="OnSelectedFriend">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <StackLayout Orientation="Horizontal">
+                                <Image Source="{Binding UrlImage}" />
+                                <Label Text="{Binding Name}"/>
+                            </StackLayout>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </StackLayout>
     </ContentPage.Content>
 </ContentPage>
