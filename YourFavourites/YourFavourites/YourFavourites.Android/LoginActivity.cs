@@ -16,7 +16,7 @@ using AndroidAuthorization;
 
 namespace YourFavourites.Droid
 {
-    [Activity(Label = "YourFavourites", Icon = "@drawable/icon", Theme = "@style/MainTheme", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
+    [Activity(Label = "YourFavourites", Icon = "@drawable/icon", Theme = "@style/ThemeOverlay.MyNoTitleActivity", MainLauncher = true, ConfigurationChanges = ConfigChanges.ScreenSize | ConfigChanges.Orientation)]
     [Register("com.smm.YourFavourites.MainActivity")]
     public class LoginActivity : AppCompatActivity, View.IOnClickListener, GoogleApiClient.IOnConnectionFailedListener
     {
@@ -35,8 +35,6 @@ namespace YourFavourites.Droid
 
             mStatusTextView = FindViewById<TextView>(Resource.Id.status);
             FindViewById(Resource.Id.sign_in_button).SetOnClickListener(this);
-            FindViewById(Resource.Id.sign_out_button).SetOnClickListener(this);
-            FindViewById(Resource.Id.disconnect_button).SetOnClickListener(this);
 
             // [START configure_signin]
             // Configure sign-in to request the user's ID, email address, and basic
@@ -179,7 +177,6 @@ namespace YourFavourites.Droid
             if (isSignedIn)
             {
                 FindViewById(Resource.Id.sign_in_button).Visibility = ViewStates.Gone;
-                FindViewById(Resource.Id.sign_out_and_disconnect).Visibility = ViewStates.Visible;
 
                 Intent intent = new Intent(this, typeof(MainActivity));
                 this.StartActivity(intent);
@@ -189,7 +186,6 @@ namespace YourFavourites.Droid
                 mStatusTextView.Text = GetString(Resource.String.signed_out);
 
                 FindViewById(Resource.Id.sign_in_button).Visibility = ViewStates.Visible;
-                FindViewById(Resource.Id.sign_out_and_disconnect).Visibility = ViewStates.Gone;
             }
         }
 
@@ -199,12 +195,6 @@ namespace YourFavourites.Droid
             {
                 case Resource.Id.sign_in_button:
                     SignIn();
-                    break;
-                case Resource.Id.sign_out_button:
-                    SignOut();
-                    break;
-                case Resource.Id.disconnect_button:
-                    RevokeAccess();
                     break;
             }
         }
