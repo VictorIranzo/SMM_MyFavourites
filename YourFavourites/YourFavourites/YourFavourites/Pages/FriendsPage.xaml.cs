@@ -21,9 +21,18 @@ namespace YourFavourites
 		{
             this.MainPage = mainPage;
 
-            BindingContext = new FirebaseService().GetUserFriends(AccountManager.GetAccountId());
+            BindingContext = new FriendsListIncrementalView();
 			InitializeComponent ();
 		}
+
+        protected override void OnAppearing()
+        {
+            base.OnAppearing();
+
+            FriendsListIncrementalView vm = BindingContext as FriendsListIncrementalView;
+
+            vm.LoadMoreItemsCommand.Execute(null);
+        }
 
         async void OnAddFriend(object sender, EventArgs e)
         {
@@ -32,8 +41,10 @@ namespace YourFavourites
             string message = new FirebaseService().AddFriend(AccountManager.GetAccountId(),email.Replace('.',',')).Result;
 
             DisplayAlert("Notification", message, "OK");
-            BindingContext = new FirebaseService().GetUserFriends(AccountManager.GetAccountId());
+            FriendsListIncrementalView friendsViewIncrementalView = new FriendsListIncrementalView();
+            BindingContext = friendsViewIncrementalView;
 
+            friendsViewIncrementalView.LoadMoreItemsCommand.Execute(null);
         }
 
         async void OnSelectedFriend(object sender, EventArgs e)
