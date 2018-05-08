@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 using YourFavourites.Components;
+using YourFavourites.Data;
 using YourFavourites.Services;
 
 namespace YourFavourites
@@ -47,9 +48,13 @@ namespace YourFavourites
             friendsViewIncrementalView.LoadMoreItemsCommand.Execute(null);
         }
 
-        async void OnSelectedFriend(object sender, EventArgs e)
+        async void OnSelectedFriend(object sender, ItemTappedEventArgs e)
         {
+            User u = (User)e.Item;
+            Page page = new FavouritesPage(this.MainPage, u.Id);
+            page.Title = u.Name;
 
+            this.MainPage.SetDetailPage(page);
         }
     }
 }

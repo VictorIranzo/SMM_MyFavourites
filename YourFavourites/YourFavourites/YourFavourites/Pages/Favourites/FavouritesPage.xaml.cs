@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AndroidAuthorization;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,11 +17,14 @@ namespace YourFavourites
 	{
         public MainPage MainPage { get; set; }
 
-        public FavouritesPage(MainPage mainPage)
+        private string UserId { get; set; }
+
+        public FavouritesPage(MainPage mainPage, string user_id)
         {
             this.MainPage = mainPage;
+            this.UserId = user_id;
 
-            BindingContext = new FavouritesListIncrementalView();
+            BindingContext = new FavouritesListIncrementalView(user_id);
 
             InitializeComponent();
         }
@@ -36,6 +40,8 @@ namespace YourFavourites
 
         async void OnElementClick(object sender, ItemTappedEventArgs e)
         {
+            if (!UserId.Equals(AccountManager.GetAccountId())) return;
+
             IElement element = (IElement)e.Item;
 
             Page page = null;

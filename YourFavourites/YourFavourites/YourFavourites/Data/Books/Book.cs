@@ -18,7 +18,7 @@ namespace YourFavourites.Data
         [JsonProperty("author")]
         public string SecondTitle {get; set;}
 
-        public string ImageUrl {get; set;}
+        public string ImageUrl { get; set; } = "https://cdn.pixabay.com/photo/2013/07/12/15/20/author-149694_1280.png";
 
         [JsonProperty("description")]
         public string Description {get; set;}

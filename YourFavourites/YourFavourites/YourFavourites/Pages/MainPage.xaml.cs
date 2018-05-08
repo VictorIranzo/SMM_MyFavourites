@@ -60,7 +60,7 @@ namespace YourFavourites
             switch (item.Title)
             {
                 case "Favourites":
-                    page = new FavouritesPage(this);
+                    page = new FavouritesPage(this, AccountManager.GetAccountId());
                     break;
                 case "Movies":
                     page = new MoviesPage(this);

@@ -10,10 +10,19 @@ namespace YourFavourites.Components
 {
     public class FavouritesListIncrementalView : IncrementalViewModel<IElement>
     {
+        private string user_id;
+
+        private FavouritesListIncrementalView() { }
+
+        public FavouritesListIncrementalView(string user_id)
+        {
+            this.user_id = user_id;
+        }
+
         protected async override Task AddItems()
         {
             IEnumerable<IElement> elementsCollection = null;
-            elementsCollection = new FirebaseService().GetUserFavorites(this.CurrentPosition, this.PageSize, AccountManager.GetAccountId());
+            elementsCollection = new FirebaseService().GetUserFavorites(this.CurrentPosition, this.PageSize, user_id);
 
             foreach (IElement element in elementsCollection)
             {
