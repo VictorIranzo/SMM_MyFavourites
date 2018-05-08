@@ -108,9 +108,9 @@ namespace YourFavourites.Services
 
             string path = user_id + GetRootOfElement(element.TypeElement);
 
-            FirebaseDB firebaseDBUserFavMovies = firebaseDB.NodePath(path);
+            FirebaseDB firebaseDBUserFavorites = firebaseDB.NodePath(path);
 
-            FirebaseResponse getResponse = firebaseDBUserFavMovies.Get();
+            FirebaseResponse getResponse = firebaseDBUserFavorites.Get();
 
             if (getResponse.JSONContent.Equals("null")) return false;
 
@@ -126,6 +126,56 @@ namespace YourFavourites.Services
             }
 
             return elementKeys == null ? false : elementKeys.Contains(element.Id);            
+        }
+
+        public IEnumerable<IElement> GetUserFavorites(string user_id)
+        {
+            List<IElement> result = new List<IElement>();
+
+            result.AddRange(GetFavouriteBooks(user_id));
+            result.AddRange(GetFavouriteMovies(user_id));
+            result.AddRange(GetFavouriteSongs(user_id));
+
+            return result.OrderBy(e => e.MainTitle);
+        }
+
+        public IEnumerable<Book> GetFavouriteBooks(string user_id)
+        {
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
+            string pathFavoriteBooks = user_id + GetRootOfElement((int)ElementType.Book);
+
+            FirebaseDB firebaseDBUserFavorites = firebaseDB.NodePath(pathFavoriteBooks);
+            FirebaseResponse getResponse = firebaseDBUserFavorites.Get();
+
+            if (getResponse.JSONContent.Equals("null")) return new List<Book>();
+
+            return DeserializeBooks(getResponse.JSONContent).Values;
+        }
+
+        public IEnumerable<Movie> GetFavouriteMovies(string user_id)
+        {
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
+            string pathFavoriteMovies = user_id + GetRootOfElement((int)ElementType.Movie);
+
+            FirebaseDB firebaseDBUserFavorites = firebaseDB.NodePath(pathFavoriteMovies);
+            FirebaseResponse getResponse = firebaseDBUserFavorites.Get();
+
+            if (getResponse.JSONContent.Equals("null")) return new List<Movie>();
+
+            return DeserializeMovies(getResponse.JSONContent).Values;
+        }
+
+        public IEnumerable<Song> GetFavouriteSongs(string user_id)
+        {
+            FirebaseDB firebaseDB = new FirebaseDB(BASE_URL);
+            string pathFavoriteSongs = user_id + GetRootOfElement((int)ElementType.Song);
+
+            FirebaseDB firebaseDBUserFavorites = firebaseDB.NodePath(pathFavoriteSongs);
+            FirebaseResponse getResponse = firebaseDBUserFavorites.Get();
+
+            if (getResponse.JSONContent.Equals("null")) return new List<Song>();
+
+            return DeserializeSongs(getResponse.JSONContent).Values;
         }
 
         private Dictionary<string, Book> DeserializeBooks(string jSONContent)
