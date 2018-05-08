@@ -36,10 +36,11 @@ namespace YourFavourites
             {
                 MenuItems = new ObservableCollection<MainPageMenuItem>(new[]
                 {
-                    new MainPageMenuItem { Id = 1, Title = "Movies" , IconSource = "movie.png"},
-                    new MainPageMenuItem { Id = 2, Title = "Songs" , IconSource = "song.png"},
-                    new MainPageMenuItem { Id = 3, Title = "Books" , IconSource = "book.png"},
-                    new MainPageMenuItem { Id = 4, Title = "Log out" , IconSource = "power.png"}
+                    new MainPageMenuItem { Id = 1, Title = "Favourites" , IconSource = "favourite.png"},
+                    new MainPageMenuItem { Id = 2, Title = "Movies" , IconSource = "movie.png"},
+                    new MainPageMenuItem { Id = 3, Title = "Songs" , IconSource = "song.png"},
+                    new MainPageMenuItem { Id = 4, Title = "Books" , IconSource = "book.png"},
+                    new MainPageMenuItem { Id = 5, Title = "Log out" , IconSource = "power.png"}
                 });
             }
 

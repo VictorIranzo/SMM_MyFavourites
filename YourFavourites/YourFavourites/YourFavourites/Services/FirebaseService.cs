@@ -128,7 +128,7 @@ namespace YourFavourites.Services
             return elementKeys == null ? false : elementKeys.Contains(element.Id);            
         }
 
-        public IEnumerable<IElement> GetUserFavorites(string user_id)
+        public IEnumerable<IElement> GetUserFavorites(int offset, int count, string user_id)
         {
             List<IElement> result = new List<IElement>();
 
@@ -136,7 +136,7 @@ namespace YourFavourites.Services
             result.AddRange(GetFavouriteMovies(user_id));
             result.AddRange(GetFavouriteSongs(user_id));
 
-            return result.OrderBy(e => e.MainTitle);
+            return result.OrderBy(e => e.MainTitle).Skip(offset).Take(count);
         }
 
         public IEnumerable<Book> GetFavouriteBooks(string user_id)

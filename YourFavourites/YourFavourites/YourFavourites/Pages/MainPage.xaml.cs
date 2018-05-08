@@ -50,6 +50,9 @@ namespace YourFavourites
 
             switch (item.Title)
             {
+                case "Favourites":
+                    page = new FavouritesPage(this);
+                    break;
                 case "Movies":
                     page = new MoviesPage(this);
                     break;

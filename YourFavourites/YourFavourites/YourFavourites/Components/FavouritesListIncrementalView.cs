@@ -13,7 +13,7 @@ namespace YourFavourites.Components
         protected async override Task AddItems()
         {
             IEnumerable<IElement> elementsCollection = null;
-            elementsCollection = new FirebaseService().GetUserFavorites(AccountManager.GetAccountId());
+            elementsCollection = new FirebaseService().GetUserFavorites(this.CurrentPosition, this.PageSize, AccountManager.GetAccountId());
 
             foreach (IElement element in elementsCollection)
             {
