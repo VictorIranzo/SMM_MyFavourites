@@ -4,8 +4,12 @@
              xmlns:local="clr-namespace:IncrementalListView.FormsPlugin;assembly=IncrementalListView.FormsPlugin"
              x:Class="YourFavourites.BooksPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
-            <Picker x:Name="listPicker" SelectedIndexChanged="OnPickerSelectedItem" WidthRequest="200"/>
+        <StackLayout Orientation="Vertical" Padding="10,10,10,10">
+            <StackLayout Orientation="Horizontal">
+                <Label Text="Categories: " HorizontalOptions="Start" VerticalOptions="Center" Font="Bold,20"/>
+                <Picker x:Name="listPicker" HorizontalOptions="FillAndExpand" SelectedIndexChanged="OnPickerSelectedItem"/>
+            </StackLayout>
+            
 
             <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200"
                                        ItemTapped="OnBookClicked">
@@ -32,9 +36,10 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" />
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding MainTitle}"/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding SecondTitle}"/>
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" Margin="10,10,10,10"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding MainTitle}"
+                                       Grid.RowSpan="2" VerticalOptions="Center" Font="Bold,20" Margin="10,10,10,0"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding SecondTitle}" Margin="10,10,10,0"/>
 
                             </Grid>
                         </ViewCell>

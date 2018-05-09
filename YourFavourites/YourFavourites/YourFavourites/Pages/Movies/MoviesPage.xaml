@@ -4,9 +4,9 @@
              xmlns:local="clr-namespace:IncrementalListView.FormsPlugin;assembly=IncrementalListView.FormsPlugin"
              x:Class="YourFavourites.MoviesPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical" Padding="10,10,10,10">
+        <StackLayout Orientation="Vertical">
 
-            <StackLayout Orientation="Horizontal">
+            <StackLayout Orientation="Horizontal" Padding="10,10,10,10">
                 <Entry x:Name="entryFilter" HorizontalOptions="FillAndExpand" Placeholder="Enter the title of a movie"/>
                 <Button Text="Find" Clicked="OnFindButtonClicked" HorizontalOptions="End"/>
             </StackLayout>
