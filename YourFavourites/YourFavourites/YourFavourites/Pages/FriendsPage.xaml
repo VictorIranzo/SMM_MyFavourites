@@ -2,16 +2,17 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
             xmlns:local="clr-namespace:IncrementalListView.FormsPlugin;assembly=IncrementalListView.FormsPlugin"
+            xmlns:controls="clr-namespace:ImageCircle.Forms.Plugin.Abstractions;assembly=ImageCircle.Forms.Plugin.Abstractions"
              x:Class="YourFavourites.FriendsPage">
     <ContentPage.Content>
         <StackLayout Orientation="Vertical">
 
-            <StackLayout Orientation="Horizontal">
-                <Entry x:Name="friendsMail" WidthRequest="200" Placeholder="Enter your friend's email."/>
-                <Button Text="Add" Clicked="OnAddFriend"/>
+            <StackLayout Orientation="Horizontal" Padding="10,10,10,10">
+                <Entry x:Name="friendsMail" HorizontalOptions="FillAndExpand" Placeholder="Enter your friend's email."/>
+                <Button Text="Add" Clicked="OnAddFriend" HorizontalOptions="End"/>
             </StackLayout>
 
-            <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200"
+            <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="75"
                                        ItemTapped="OnSelectedFriend">
 
                 <x:Arguments>
@@ -30,12 +31,29 @@
                                 </Grid.RowDefinitions>
 
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding UrlImage}" />
-                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}"/>
+                                <controls:CircleImage Source="{Binding UrlImage}" Aspect="AspectFit" 
+                                                      Grid.Column="0" Grid.Row="0" VerticalOptions="Center"  
+                                                      Margin="10,10,10,10" HorizontalOptions="Start">
+                                    <controls:CircleImage.WidthRequest>
+                                        <OnPlatform x:TypeArguments="x:Double">
+                                            <On Platform="Android, iOS">55</On>
+                                            <On Platform="WinPhone">75</On>
+                                        </OnPlatform>
+                                    </controls:CircleImage.WidthRequest>
+                                    <controls:CircleImage.HeightRequest>
+                                        <OnPlatform x:TypeArguments="x:Double">
+                                            <On Platform="Android, iOS">55</On>
+                                            <On Platform="WinPhone">75</On>
+                                        </OnPlatform>
+                                    </controls:CircleImage.HeightRequest>
+                                </controls:CircleImage>
+
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding Name}" Font="Bold,20" Margin="10,10,10,10"  
+                                       HorizontalOptions="Start" VerticalOptions="Center"/>
 
                             </Grid>
                         </ViewCell>
