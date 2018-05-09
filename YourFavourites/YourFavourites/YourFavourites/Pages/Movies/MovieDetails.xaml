@@ -4,16 +4,17 @@
              x:Class="YourFavourites.MovieDetails">
     <ContentPage.Content>
         <ScrollView>
-            <Grid>
+            <Grid Margin="10,10,10,10">
 
                 <Grid.RowDefinitions>
                     <RowDefinition Height="200"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
-                    <RowDefinition Height="40"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
                 <Grid.ColumnDefinitions>
@@ -21,19 +22,22 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" />
+                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" Margin="10,10,10,10"/>
 
-                <Label Grid.Row="1" Grid.Column="1" Text="{Binding MainTitle}"/>
-                <Label Grid.Row="2" Grid.Column="1" Text="{Binding SecondTitle}"/>
+                <Label Grid.Row="0" Grid.Column="1" Text="{Binding MainTitle}" Font="Bold,14" 
+                       Grid.RowSpan="3" Margin="5,5,5,0" VerticalOptions="Center"/>
 
-                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding FirstFeature}"/>
+                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=SecondTitle, StringFormat='Rating: {0}'}" Margin="5,5,5,5"/>
 
-                <Label Grid.Row="4" Grid.Column="0" Text="{Binding SecondFeature}"/>
+                <Label Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" Font="Bold" 
+                       Text="{Binding Path=FirstFeature, StringFormat='Categories: {0}'}"/>
 
-                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Description}"/>
+                <Label Grid.Row="4" Grid.Column="0" Text="{Binding Path=SecondFeature, StringFormat='Year: {0}'}"/>
 
-                <Button x:Name="butAddFavourite" Grid.Row="6" Grid.Column="0" Clicked="OnAddFavClicked"/>
-                <Button Grid.Row="6" Grid.Column="1" Text="See trailer" Clicked="OnShowTrailerClicked"/>
+                <Label Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="{Binding Description}" Margin="5,5,5,5"/>
+
+                <Button x:Name="butAddFavourite" Grid.Row="6" Grid.Column="0" Grid.ColumnSpan="2" Clicked="OnAddFavClicked"/>
+                <Button Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Text="See trailer" Clicked="OnShowTrailerClicked"/>
 
             </Grid>
         </ScrollView>
