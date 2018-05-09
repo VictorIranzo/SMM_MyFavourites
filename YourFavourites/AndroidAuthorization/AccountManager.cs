@@ -24,9 +24,6 @@ namespace AndroidAuthorization
 
         private AccountManager() {}
 
-        // TODO: Revisar si estos métodos deberían dejar de ser estáticos para implementar correctamente el patrón Singleton.
-        // Si son de instancia, pueden acceder igualmente al atributo estático.
-
         public static string GetAccountId()
         {
             return googleSignInAccount?.Id;
