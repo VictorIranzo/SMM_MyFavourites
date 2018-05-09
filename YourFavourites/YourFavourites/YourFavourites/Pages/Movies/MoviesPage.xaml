@@ -4,11 +4,11 @@
              xmlns:local="clr-namespace:IncrementalListView.FormsPlugin;assembly=IncrementalListView.FormsPlugin"
              x:Class="YourFavourites.MoviesPage">
     <ContentPage.Content>
-        <StackLayout Orientation="Vertical">
+        <StackLayout Orientation="Vertical" Padding="10,10,10,10">
 
             <StackLayout Orientation="Horizontal">
-                <Entry x:Name="entryFilter" WidthRequest="200"/>
-                <Button Text="Find" Clicked="OnFindButtonClicked"/>
+                <Entry x:Name="entryFilter" HorizontalOptions="FillAndExpand" Placeholder="Enter the title of a movie"/>
+                <Button Text="Find" Clicked="OnFindButtonClicked" HorizontalOptions="End"/>
             </StackLayout>
 
             <local:IncrementalListView ItemsSource="{Binding MyItems}" PreloadCount="5" RowHeight="200"
@@ -36,9 +36,10 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" />
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding MainTitle}"/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding SecondTitle}"/>
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" Margin="10,10,10,10" />
+                                <Label Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" 
+                                       VerticalOptions="Center" Text="{Binding MainTitle}" Font="Bold,20" Margin="10,10,10,0"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding Path=SecondTitle, StringFormat='Rating: {0}'}" Margin="10,10,10,0"/>
 
                             </Grid>
                         </ViewCell>
