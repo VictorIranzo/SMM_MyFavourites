@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="IncrementalListView.FormsPlugin" Version="1.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Xam.Plugins.Forms.ImageCircle" Version="2.0.2" />
     <PackageReference Include="Xamarin.Forms" Version="2.5.0.280555" />
   </ItemGroup>
 
