@@ -31,9 +31,10 @@
                                     <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" />
-                                <Label Grid.Row="1" Grid.Column="1" Text="{Binding MainTitle}"/>
-                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding SecondTitle}"/>
+                                <Image Grid.Row="0" Grid.Column="0" Grid.RowSpan="3" Source="{Binding ImageUrl}" Margin="10,10,10,10"/>
+                                <Label Grid.Row="0" Grid.Column="1" Text="{Binding MainTitle}" Margin="10,10,10,10"
+                                       Grid.RowSpan="2" VerticalOptions="Center" Font="Bold,20"/>
+                                <Label Grid.Row="2" Grid.Column="1" Text="{Binding SecondTitle}" Margin="10,10,10,10"/>
 
                             </Grid>
                         </ViewCell>

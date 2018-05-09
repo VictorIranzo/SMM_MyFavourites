@@ -40,7 +40,7 @@ namespace YourFavourites
                     new MainPageMenuItem { Id = 2, Title = "Movies" , IconSource = "movie.png"},
                     new MainPageMenuItem { Id = 3, Title = "Songs" , IconSource = "song.png"},
                     new MainPageMenuItem { Id = 4, Title = "Books" , IconSource = "book.png"},
-                    new MainPageMenuItem { Id = 5, Title = "Friends" , IconSource = "book.png"},
+                    new MainPageMenuItem { Id = 5, Title = "Friends" , IconSource = "person.png"},
                     new MainPageMenuItem { Id = 6, Title = "Log out" , IconSource = "power.png"}
                 });
             }
