@@ -91,4 +91,4 @@ Use of the YouTube API to get the video of a song: it has been used to open the 
 ## ImageCircle
 Use of Xam.Plugins.Forms.ImageCircle for making an image circular: the provided component has been used, found in: https://github.com/jamesmontemagno/ImageCirclePlugin 
 
-eAn Example of use is in the FriendsPage.
+An Example of use is in the FriendsPage.
